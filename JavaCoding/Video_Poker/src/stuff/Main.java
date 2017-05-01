@@ -15,6 +15,7 @@ public class Main {
 			System.out.println();
 			final char mode = Stuff.checkmode(args[0]);
 			System.out.println("Selected mode: " + mode);
+			Stuff.getArgs(args);
 			
 		}
 

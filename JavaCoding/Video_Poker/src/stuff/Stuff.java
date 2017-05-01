@@ -27,4 +27,7 @@ public class Stuff {
 		return result;
 
 	}
+	static void getArgs(String[] args){
+		
+	}
 }
