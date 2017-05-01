@@ -1,5 +1,17 @@
 package game;
 
 class Deck {
-
+	Card [] Deck52;
+	char[] suits={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
+	char[] ranks={'D','S','C','H'};
+	
+	Deck(){
+		Deck52 = new Card [52];
+		for(int j=0;j<4;j++){
+			for(int i=0; i<13; i++){	
+				Deck52[i+(j*13)]=new Card(suits[i],ranks[j-1],j+2);
+			}
+		}
+		
+	}
 }
