@@ -1,11 +1,11 @@
 package game;
 
-class Credit {
+public class Credit {
 	private int initial_credit;
 	private int actual_credit;
 	int prev_bet=5;
 	
-	Credit(int credit){
+	public Credit(int credit){
 		setInitial_credit(credit);
 		setActual_credit(credit);
 	}
@@ -18,12 +18,21 @@ class Credit {
 		this.initial_credit = initial_credit;
 	}
 
-	public int getActual_credit() {
+	public int getActual_credit(){
 		return actual_credit;
 	}
 
 	public void setActual_credit(int actual_credit) {
 		this.actual_credit = actual_credit;
+	}
+	
+	public void bet(){
+		bet(this.prev_bet);
+	}
+	
+	public void bet(int credit){
+		this.actual_credit=this.actual_credit-credit;
+		this.prev_bet=credit;
 	}
 	
 }
