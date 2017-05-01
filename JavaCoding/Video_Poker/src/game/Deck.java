@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Random;
+
 class Deck {
 	Card [] Deck52;
 	char[] suits={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
@@ -14,4 +16,17 @@ class Deck {
 		}
 		
 	}
+	
+	void shuffle(){
+		int index;
+		Card  temp;
+		Random random = new Random();
+		for(int i =51; i>0;i--){
+			index = random.nextInt(i);
+			temp = Deck52[index];
+			Deck52[index]= Deck52[i];
+			Deck52[i]=temp;
+		}
+	}
+	
 }
