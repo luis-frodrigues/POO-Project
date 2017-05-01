@@ -7,7 +7,9 @@ public abstract class Game{
 		kinhas= new Player(credit);
 	}
 	
-	abstract void  init(); 
+	void init(){
+		
+	} 
 	
 
 }
