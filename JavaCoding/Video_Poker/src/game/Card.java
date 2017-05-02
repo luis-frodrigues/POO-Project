@@ -9,4 +9,8 @@ class Card {
 		rank=ranks;
 		value=values;
 	}
+	@Override
+	public String toString() {
+		return  ""+suits+rank+"";
+	}
 }

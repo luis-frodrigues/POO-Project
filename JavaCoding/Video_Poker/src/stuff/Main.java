@@ -3,9 +3,25 @@ package stuff;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Hello, brace yourselves...");
-		System.out.println("poo is coming!!"); 
+		
+		if(args.length < 1){
+			System.out.println("Error: No arguments received");
+			Stuff.printUsage();
+			System.exit(1);
+		}else{
+			System.out.print("Arguments received: ");
+			for	(int i=0; i<args.length; i++)
+				System.out.print(args[i] + " ");
+			System.out.println();
+			final char mode = Stuff.checkmode(args[0]);
+			System.out.println("Selected mode: " + mode);
+			
+		}
+
+		System.out.println("The end!");
 	}
+	
+
+	
 
 }

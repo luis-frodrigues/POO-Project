@@ -4,8 +4,8 @@ import java.util.Random;
 
 class Deck {
 	Card [] Deck52;
-	final char[] suits={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
-	final char[] ranks={'D','S','C','H'};
+	final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
+	final char[] suits={'D','S','C','H'};
 	
 	Deck(){
 		Deck52 = new Card [52];
