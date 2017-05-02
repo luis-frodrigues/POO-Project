@@ -11,10 +11,9 @@ class Deck {
 		Deck52 = new Card [52];
 		for(int j=0;j<4;j++){
 			for(int i=0; i<13; i++){	
-				Deck52[i+(j*13)]=new Card(suits[i],ranks[j-1],j+2);
+				Deck52[i+(j*13)]=new Card(suits[i],ranks[j],i+(j*13));	
 			}
 		}
-		
 	}
 	
 	void shuffle(int from){
@@ -29,4 +28,15 @@ class Deck {
 		}
 	}
 	
+	void printDeck(int from){
+			if((from>=0)&&(from<=51)){
+				for(int i=from; i<=51;i++){
+					System.out.println(Deck52[i]);
+				}
+			}else{
+				System.out.println("Not a valid position of the Deck");
+			}
+		}
+	
+			
 }
