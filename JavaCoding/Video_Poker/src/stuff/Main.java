@@ -13,12 +13,8 @@ public class Main {
 			for	(int i=0; i<args.length; i++)
 				System.out.print(args[i] + " ");
 			System.out.println();
-			final char mode = Stuff.checkmode(args[0]);
-			System.out.println("Selected mode: " + mode);
-			Stuff.getArgs(args);
-			
+			Stuff.checkmode(args);
 		}
-
 		System.out.println("The end!");
 	}
 	
