@@ -6,11 +6,14 @@ public class Interactive extends Game{
 		super(credit);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	void init() {
-		// TODO Auto-generated method stub
-		
+	public String Process1() {
+		return null;
+	}
+	public String Process2() {
+		return null;
+	}
+	public String Process3() {
+		return null;
 	}
 
 }
