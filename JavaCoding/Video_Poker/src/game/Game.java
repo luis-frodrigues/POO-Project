@@ -51,5 +51,7 @@ public abstract class Game{
 	}
 	
 	public abstract String Process1();
+	public abstract String Process2();
+	public abstract String Process3();
 	
 }
