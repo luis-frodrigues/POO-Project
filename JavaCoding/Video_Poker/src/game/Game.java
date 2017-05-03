@@ -2,9 +2,13 @@ package game;
 
 public abstract class Game{
 	Credit credit;
+	Hand hand;
+	Deck deck;
 	
 	public Game(int credit){
 		this.credit= new Credit(credit);
+		this.hand= new Hand();
+		this.deck= new Deck();
 	}
 	
 	static boolean validBet(String cmd1){
@@ -103,11 +107,9 @@ public abstract class Game{
 		String cmd1="ABC";
 		String cmd2="ABC";
 		String cmd3="ABC";
-		String[] cmdaux;
-		int i=0;
-		boolean isInteger=true;
-		//Assume-se que receberá no máximo dois caracteres;
-		cmd1=Process1();
+
+
+		cmd1=Process1();		//Assume-se que receberá no máximo dois caracteres;
 		
 		while((cmd1!="b")&&(cmd1!="b 1")&&(cmd1!="b 2")&&(cmd1!="b 3")&&(cmd1!="b 4")&&(cmd1!="b 5")){
 			switch(cmd1){
@@ -121,38 +123,10 @@ public abstract class Game{
 				System.exit(0);//Sai do jogo;
 			break;
 			default:
-				if(cmd1.length()<=1){
-					System.out.println(cmd1 +": illegal command1"); // caso em que é apenas 1 caracter e não corresponde a $,b ou q
-				}
-				else{
-					if((cmd1.charAt(1)==' ')&&(cmd1.length()>2)){ //se o segundo caracter não for 1 espaço = illegal command (não existem comandos com mais q 1 char)
-						cmdaux=cmd1.split(" ");
-						if(cmd1.charAt(2)!=' '){
-							if (cmdaux.length<3){ //não existem comandos com 3 strings
-								if(cmdaux[0].charAt(0)=='b'){
-									while(i<cmdaux[1].length()&&(isInteger)){
-										if((cmdaux[1].charAt(i)<'0')||(cmdaux[1].charAt(i)>'9')){ //
-											isInteger=false;
-										}
-										i++;
-									}
-									if(isInteger){// falta o caso de numeros negativos e floats: "b 1.2323"
-										System.out.println("b: illegal amount");
-									}else{
-										System.out.println(cmd1 +": illegal command2");
-									}
-								}else{
-									System.out.println(cmd1 +": illegal command3");
-								}
-							}else{
-								System.out.println(cmd1 +": illegal command4");
-							}
-						}else{
-							System.out.println(cmd1 +": illegal command5");
-						}
-					}else{
-					System.out.println(cmd1 +": illegal command5");
-					}
+				if(!validBet(cmd1)){ //para verificar que comando enviar: illegal command ou illegal amount
+					System.out.println(cmd1 +": illegal command");
+				}else{
+					System.out.println("b: illegal amount");
 				}
 			}
 			cmd1=Process1();
@@ -211,7 +185,7 @@ public abstract class Game{
 		
 		cmd3= Process3();
 		
-		while(!(validHold(cmd3))){
+		while(!(validHold(cmd3))){ //enquanto não for nenhum
 			switch(cmd3){
 			case "$":
 				System.out.println("player's credit is "+credit.getActual_credit());//mambos
@@ -230,6 +204,7 @@ public abstract class Game{
 			}
 			cmd3=Process3();
 		}
+		
 		
 		
 	}
