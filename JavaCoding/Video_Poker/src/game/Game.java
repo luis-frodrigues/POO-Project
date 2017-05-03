@@ -7,8 +7,57 @@ public abstract class Game{
 		this.credit= new Credit(credit);
 	}
 	
-	static boolean verifyHold(String cmd3){
+	static boolean validBet(String cmd1){
+		String cmdaux[];
+		boolean isInteger=true;
+		int i=0;
+		
+		if(cmd1.length()<=1){
+			System.out.println(cmd1 +": illegal command1"); // caso em que é apenas 1 caracter e não corresponde a $,b ou q
+			return(false);
+		}
+		else{
+			if((cmd1.charAt(1)==' ')&&(cmd1.length()>2)){ //se o segundo caracter não for 1 espaço = illegal command (não existem comandos com mais q 1 char)
+				cmdaux=cmd1.split(" ");
+				if(cmd1.charAt(2)!=' '){
+					if (cmdaux.length<3){ //não existem comandos com 3 strings
+						if(cmdaux[0].charAt(0)=='b'){
+							while(i<cmdaux[1].length()&&(isInteger)){
+								if((cmdaux[1].charAt(i)<'0')||(cmdaux[1].charAt(i)>'9')){ //
+									isInteger=false;
+								}
+								i++;
+							}
+							if(isInteger){// falta o caso de numeros negativos e floats: "b 1.2323"
+								System.out.println("b: illegal amount");
+								return(true);
+							}else{
+								System.out.println(cmd1 +": illegal command2");
+								return(false);
+							}
+						}else{
+							System.out.println(cmd1 +": illegal command3");
+							return(false);
+						}
+					}else{
+						System.out.println(cmd1 +": illegal command4");
+						return(false);
+					}
+				}else{
+					System.out.println(cmd1 +": illegal command5");
+					return(false);
+				}
+			}else{
+			System.out.println(cmd1 +": illegal command5");
+			return(false);
+			}
+		}
+	}
+	
+	static boolean validHold(String cmd3){
 		String[] cmdaux;
+		int i=0;
+		int j=0;
 		
 		if (cmd3.length()==0){
 			return(false);
@@ -16,13 +65,37 @@ public abstract class Game{
 			if (cmd3.charAt(0)!='h'){
 				return(false);
 			}else{
-				if ((cmd3.charAt(1)==' ')&&(cmd3.length()<3)){
-					cmdaux=cmd3.split(" ");
-				
+				if(cmd3.length()>1){
+					if ((cmd3.charAt(1)==' ')&&(cmd3.length()>2)){
+						cmdaux=cmd3.split(" ");
+						if((cmd3.charAt(2)==' ')||(cmdaux.length>6)){
+							return(false);
+						}else{
+							for(i=1; i<cmdaux.length; i++){
+								if(cmdaux[i].length()!=1){
+									return(false);
+								}
+								if((cmdaux[i].charAt(0)<'1')||(cmdaux[i].charAt(0)>'5')){
+									return (false);
+								}
+							}
+							if (cmdaux.length==2){
+								return(true);
+							}
+							for(i=1; i<cmdaux.length-1; i++){
+								for(j=i+1; j<cmdaux.length; i++){
+									if(cmdaux[i].charAt(0)==cmdaux[j].charAt(0)){
+										return(false);
+									}
+								}
+							}
+							
+						}
+					}
 				}
 			}
-			return(false);
 		}
+		return(true);
 	}
 	
 	public void init(){
@@ -54,24 +127,28 @@ public abstract class Game{
 				else{
 					if((cmd1.charAt(1)==' ')&&(cmd1.length()>2)){ //se o segundo caracter não for 1 espaço = illegal command (não existem comandos com mais q 1 char)
 						cmdaux=cmd1.split(" ");
-						if (cmdaux.length<3){ //não existem comandos com 3 strings
-							if(cmdaux[0].charAt(0)=='b'){
-								while(i<cmdaux[1].length()&&(isInteger)){
-									if((cmdaux[1].charAt(i)<'0')||(cmdaux[1].charAt(i)>'9')){ //
-										isInteger=false;
+						if(cmd1.charAt(2)!=' '){
+							if (cmdaux.length<3){ //não existem comandos com 3 strings
+								if(cmdaux[0].charAt(0)=='b'){
+									while(i<cmdaux[1].length()&&(isInteger)){
+										if((cmdaux[1].charAt(i)<'0')||(cmdaux[1].charAt(i)>'9')){ //
+											isInteger=false;
+										}
+										i++;
 									}
-									i++;
-								}
-								if(isInteger){// falta o caso de numeros negativos e floats: "b 1.2323"
-									System.out.println("b: illegal amount");
+									if(isInteger){// falta o caso de numeros negativos e floats: "b 1.2323"
+										System.out.println("b: illegal amount");
+									}else{
+										System.out.println(cmd1 +": illegal command2");
+									}
 								}else{
-									System.out.println(cmd1 +": illegal command2");
+									System.out.println(cmd1 +": illegal command3");
 								}
 							}else{
-								System.out.println(cmd1 +": illegal command3");
+								System.out.println(cmd1 +": illegal command4");
 							}
 						}else{
-							System.out.println(cmd1 +": illegal command4");
+							System.out.println(cmd1 +": illegal command5");
 						}
 					}else{
 					System.out.println(cmd1 +": illegal command5");
@@ -134,8 +211,24 @@ public abstract class Game{
 		
 		cmd3= Process3();
 		
-		while(!(verifyHold(cmd3))){
-			
+		while(!(validHold(cmd3))){
+			switch(cmd3){
+			case "$":
+				System.out.println("player's credit is "+credit.getActual_credit());//mambos
+			break;
+			case "q":
+				System.exit(0);//leave game;
+			break;
+			case "a":
+				// Fazer o advice
+			break;
+			case "s":
+				// Estatisticas
+			break;
+			default:
+				System.out.println(cmd3+": illegal command");
+			}
+			cmd3=Process3();
 		}
 		
 		
