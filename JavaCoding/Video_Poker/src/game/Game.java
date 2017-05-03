@@ -173,10 +173,7 @@ public abstract class Game{
 		
 		switch(cmd2) {
 			case "d":
-				/*
-						Statements que distribuem as cartas.
-				  */
-				 
+				hand.giveHand();
 			break;
 			default:
 				System.out.println("Erro fatal");
