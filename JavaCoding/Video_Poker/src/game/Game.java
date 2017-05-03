@@ -5,19 +5,23 @@ public abstract class Game{
 	
 	public Game(int credit){
 		this.credit= new Credit(credit);
-		
 	}
 	
 	static boolean verifyHold(String cmd3){
+		String[] cmdaux;
+		
 		if (cmd3.length()==0){
-			return(true);
+			return(false);
 		}else{
 			if (cmd3.charAt(0)!='h'){
-				return(true);
+				return(false);
 			}else{
+				if ((cmd3.charAt(1)==' ')&&(cmd3.length()<3)){
+					cmdaux=cmd3.split(" ");
 				
+				}
 			}
-			return(true);
+			return(false);
 		}
 	}
 	
@@ -130,7 +134,7 @@ public abstract class Game{
 		
 		cmd3= Process3();
 		
-		while(verifyHold(cmd3)){
+		while(!(verifyHold(cmd3))){
 			
 		}
 		
