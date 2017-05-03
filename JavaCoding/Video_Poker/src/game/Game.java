@@ -15,6 +15,7 @@ public abstract class Game{
 		boolean isInteger=true;
 		//Assume-se que receberá no máximo dois caracteres;
 		cmd1=Process1();
+		
 		while((cmd1!="b")&&(cmd1!="b 1")&&(cmd1!="b 2")&&(cmd1!="b 3")&&(cmd1!="b 4")&&(cmd1!="b 5")&&(cmd1!="q")&&(cmd1!="$")&&(cmd1!="s")){
 			if(cmd1.length()<=1){
 				System.out.println(cmd1 +": illegal command1"); // caso em que é apenas 1 caracter e não corresponde a $,b ou q
@@ -45,11 +46,10 @@ public abstract class Game{
 				System.out.println(cmd1 +": illegal command5");
 				}
 			}
-			cmd1="b 1";
+			cmd1=Process1();
 		}
 	}
 	
 	public abstract String Process1();
 	
-
 }

@@ -7,7 +7,6 @@ public class Main {
 		init(args);
 		System.out.println("The end!");
 
-
 	}
 	
 	private static void init(String[] args){
