@@ -1,10 +1,11 @@
 package game;
 
 public abstract class Game{
-	Player kinhas;
+	Credit credit;
 	
-	Game(int credit){
-		kinhas= new Player(credit);
+	public Game(int credit){
+		this.credit= new Credit(credit);
+		
 	}
 	
 	public void init(){
@@ -48,7 +49,41 @@ public abstract class Game{
 			}
 			cmd1=Process1();
 		}
+		switch(cmd1) {
+			case "b":
+				credit.bet();
+			break;
+			case "b 1":
+				credit.bet(1);
+			break;
+			case "b 2":
+				credit.bet(2);
+			break;
+			case "b 3":
+				credit.bet(3);
+			break;
+			case "b 4":
+				credit.bet(4);
+			break;
+			case "b 5":
+				credit.bet(5);
+			break;
+			case "s":
+				//mambos
+			break;
+			case "$":
+				System.out.println("player's credit is "+credit.getActual_credit());//mambos
+			break;
+			case "q":
+				System.exit(0);//leave game;
+			break;
+			default:
+				System.out.println("Error: Command entry is wrong.");// Optional
+		      // Statements
+		}
+		
 	}
+		
 	
 	public abstract String Process1();
 	public abstract String Process2();
