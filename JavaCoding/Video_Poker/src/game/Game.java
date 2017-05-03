@@ -3,12 +3,11 @@ package game;
 public abstract class Game{
 	Credit credit;
 	Hand hand;
-	Deck deck;
 	
 	public Game(int credit){
 		this.credit= new Credit(credit);
 		this.hand= new Hand();
-		this.deck= new Deck();
+
 	}
 	
 	static boolean validBet(String cmd1){
