@@ -4,14 +4,15 @@ import java.util.Random;
 
 class Deck {
 	Card [] Deck52;
-	final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
-	final char[] suits={'D','S','C','H'};
+	
 	
 	Deck(){
 		Deck52 = new Card [52];
+		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
+		final char[] suits={'D','S','C','H'};
 		for(int j=0;j<4;j++){
 			for(int i=0; i<13; i++){	
-				Deck52[i+(j*13)]=new Card(suits[i],ranks[j],i+(j*13));	
+				Deck52[i+(j*13)]=new Card(suits[j],ranks[i],i+(j*13));	
 			}
 		}
 	}
@@ -37,6 +38,8 @@ class Deck {
 				System.out.println("Not a valid position of the Deck");
 			}
 		}
-	
+	Card getCardFromDeck(int pos){
+		return Deck52[pos];
+	}
 			
 }
