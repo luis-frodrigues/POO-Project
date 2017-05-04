@@ -24,7 +24,7 @@ public class Hand {
 	public void printHand(){
 		int i=0;
 		for(i=0; i<5;i++){
-			System.out.println(player_hand[i]);
+			System.out.print(player_hand[i]+" ");
 		}
 	}
 
