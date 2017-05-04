@@ -18,12 +18,12 @@ class Deck {
 		
 	}
 	
-	void shuffle(){
+	void shuffle(int from){
 		int index;
 		Card  temp;
 		Random random = new Random();
 		for(int i =51; i>0;i--){
-			index = random.nextInt(i);
+			index = random.nextInt(i+1-from)+from;
 			temp = Deck52[index];
 			Deck52[index]= Deck52[i];
 			Deck52[i]=temp;

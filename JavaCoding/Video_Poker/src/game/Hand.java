@@ -15,7 +15,7 @@ public class Hand {
 	
 	public void giveHand(){
 		int pos=0;
-		deck.shuffle();
+		deck.shuffle(0);
 		for (pos=0;pos<5;pos++){
 			player_hand[pos]= deck.getCardFromDeck(pos);
 		}
