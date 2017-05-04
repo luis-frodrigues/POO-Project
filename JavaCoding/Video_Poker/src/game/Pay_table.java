@@ -1,31 +1,65 @@
 package game;
 
+import java.util.Hashtable;
+
 abstract class  Pay_table {
-	public int max_credits=5;
-	int Royal_Flush=250;
-	int Straight_Flush=50;
-	int Four_5_K=160;
-	int Four_2_4=80;
-	int Full_House=50;
-	int Flush=10;
-	int Straight=7;
-	int Three_of_a_Kind=5;
-	int TwoPair=3;
-	int JacksorBetter;
-	int Table [][];
-	
-	Pay_table(){
-		Table = new int [10][5];
+	private int elem_on_table=0;
+	private int max_pay_types=0;
+	protected int max_credits=0;
+	protected Hashtable<Object, Object> PayTable;
+		
+	Pay_table(int max_pay_types, int max_credits){
+		PayTable = new Hashtable<Object, Object>();
+		this.max_credits=max_credits;
+		this.max_pay_types=max_pay_types;
+	}
+		
+	@SuppressWarnings("unchecked")
+	void intsertValue(Object HandType, Object Credit, int Value){
+		if((PayTable.containsKey(HandType))&&(elem_on_table>0)){
+			Hashtable<Object, Integer> tmp=  (Hashtable<Object, Integer>) PayTable.get(HandType);
+			if(tmp.size()<max_credits){
+				tmp.put(Credit, Value);
+			}else{
+				System.out.println("Max credits reached");
+			}
+		}else{
+			if(elem_on_table<max_pay_types){
+				Hashtable<Object, Integer> aux=new Hashtable<Object, Integer>();
+				aux.put(Credit, Value);
+				PayTable.put(HandType, aux);
+				elem_on_table++;
+			}else{
+				System.out.println("Table at full capacity");
+			}
+		}
 	}
 	
-	Pay_table(int max_credit){
-		Table = new int [10][max_credit];
-		max_credits=max_credit;
+	@SuppressWarnings("unchecked")
+	int check_payout(Object HandType, Object Credit){
+		if(PayTable.containsKey(HandType)){
+			Hashtable<Object,Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
+			if(tmp.containsKey(Credit)){
+				int i=(int) tmp.get(Credit);
+				return i;
+			}
+			System.out.println("Credit '"+Credit+"' does not exit for that HandType");
+			return -1;
+		}
+		return -2;
 	}
 	
-	
-	int check_payout(int credit, int priority ){
-		return Table[priority][credit];
+	@SuppressWarnings("unchecked")
+	void removeValue(Object HandType, Object Credit){
+		if(PayTable.containsKey(HandType)){
+			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
+			if(tmp.contains(Credit)){
+				tmp.remove(Credit);
+			}
+			if(tmp.size()==0){
+				PayTable.remove(tmp);
+				elem_on_table--;
+			}
+		}	
 	}
-	
 }
