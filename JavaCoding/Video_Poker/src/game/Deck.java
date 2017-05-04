@@ -2,7 +2,8 @@ package game;
 
 import java.util.Random;
 
-class Deck {
+public class Deck {
+
 	Card [] Deck52;
 	
 	
@@ -21,7 +22,7 @@ class Deck {
 		int index;
 		Card  temp;
 		Random random = new Random();
-		for(int i =51; i>0;i--){
+		for(int i =51; i>=from;i--){
 			index = random.nextInt(i+1-from)+from;
 			temp = Deck52[index];
 			Deck52[index]= Deck52[i];
@@ -32,14 +33,22 @@ class Deck {
 	void printDeck(int from){
 			if((from>=0)&&(from<=51)){
 				for(int i=from; i<=51;i++){
-					System.out.println(Deck52[i]);
+					System.out.print(Deck52[i]+" ");
 				}
+				System.out.println();
 			}else{
 				System.out.println("Not a valid position of the Deck");
 			}
 		}
 	Card getCardFromDeck(int pos){
-		return Deck52[pos];
+		Card card=Deck52[pos];
+		return (new Card(card.getSuit(), card.getRank(), card.getValue()));
 	}
-			
+	Card[] GiveNewCards(int n_cards){
+		Card[] newcards= new Card[5];
+		for(int i=5; i<5+n_cards; i++){
+			newcards[i-5]= this.Deck52[i];
+		}
+		return newcards;	
+	}
 }

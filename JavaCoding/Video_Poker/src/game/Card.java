@@ -1,6 +1,6 @@
 package game;
+public class Card {
 
-class Card {
 	char suits;
 	char rank;
 	int value;
@@ -25,4 +25,5 @@ class Card {
 	public String toString() {
 		return  ""+rank+suits+"";
 	}
+
 }
