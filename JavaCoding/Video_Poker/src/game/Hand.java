@@ -20,12 +20,24 @@ public class Hand {
 		}else{
 			n_holds=temp.length-1;
 			deck.shuffle(0);
-
+			int []aux = new int[n_holds];
 			//Check Valid Inputs
 			for(int i=0; i<n_holds;i++){
+				if(temp[i+1].length()!=1){
+					System.out.println("INVALID FORMAT IN HOLD ARGUMENS");
+					return;
+				}
 				if(Character.getNumericValue((temp[i+1].charAt(0)))<1||Character.getNumericValue((temp[i+1].charAt(0)))>5){
 					System.out.println("INVALID FORMAT IN HOLD ARGUMENS");
 					return;
+				}
+				//Compare if 2 digits are equal//
+				aux[i]=Integer.parseInt(temp[i+1]);
+				for(int j=0;j<i;j++){
+					if(aux[j]==aux[i]){
+						System.out.println("REPEATED CARDS TO HOLD!");
+						return;
+					}
 				}
 			}//
 			switch (n_holds) {
@@ -57,6 +69,7 @@ public class Hand {
 			}
 		}
 	}
+	
 	//INSERT THE HOLDED CARDS IN A NEW DECK WITH THE NEW CARDS NEEDED
 	//START TO REPLACE FROM THE END OF NEW DECK, WICH DONT HAVE YET n_holds CARDS
 	private void replace(Card[] newcards, String[] temp, int n_holds){
