@@ -1,31 +1,60 @@
 package game;
 
+import java.util.Hashtable;
+
 abstract class  Pay_table {
-	public int max_credits=5;
-	int Royal_Flush=250;
-	int Straight_Flush=50;
-	int Four_5_K=160;
-	int Four_2_4=80;
-	int Full_House=50;
-	int Flush=10;
-	int Straight=7;
-	int Three_of_a_Kind=5;
-	int TwoPair=3;
-	int JacksorBetter;
-	int Table [][];
+	int elem_on_table=0;
+	int max_pay_types=0;
+	Hashtable<Object, Object> PayTable;
+	Hashtable<Object,Integer>[] aux;
 	
-	Pay_table(){
-		Table = new int [10][5];
+	@SuppressWarnings("unchecked")
+	Pay_table(int max_pay_types){
+		PayTable = new Hashtable<Object, Object>();
+		aux= new Hashtable[max_pay_types];
+		this.max_pay_types=max_pay_types;
+	}
+		
+	void intsertValue(Object OutcomeType, Object Credit, int Value){
+		if((PayTable.containsKey(OutcomeType))&&(elem_on_table>0)){
+			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(OutcomeType);
+			tmp.put(Credit, Value);
+		}else{
+			if(elem_on_table<max_pay_types){
+				aux[elem_on_table]=new Hashtable<Object, Integer>();
+				aux[elem_on_table].put(Credit, Value);
+				PayTable.put(OutcomeType, aux[elem_on_table]);
+				elem_on_table++;
+			}else{
+				System.out.println("Table at full capacity");
+			}
+		}
 	}
 	
-	Pay_table(int max_credit){
-		Table = new int [10][max_credit];
-		max_credits=max_credit;
+	@SuppressWarnings("unchecked")
+	int check_payout(Object OutcomeType, Object Credit){
+		if(PayTable.containsKey(OutcomeType)){
+			Hashtable<Object,Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(OutcomeType);
+			if(tmp.containsKey(Credit)){
+				int i=(int) tmp.get(Credit);
+				return i;
+			}
+			return 1;
+		}
+		return 0;
 	}
 	
-	
-	int check_payout(int credit, int priority ){
-		return Table[priority][credit];
+	@SuppressWarnings("unchecked")
+	void removeValue(Object OutcomeType, Object Credit){
+		if(PayTable.containsKey(OutcomeType)){
+			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(OutcomeType);
+			if(tmp.contains(Credit)){
+				tmp.remove(Credit);
+			}
+			if(tmp.size()==0){
+				PayTable.remove(tmp);
+				elem_on_table--;
+			}
+		}	
 	}
-	
 }
