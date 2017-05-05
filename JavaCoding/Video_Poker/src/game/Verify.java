@@ -1,63 +1,103 @@
 package game;
 
 public interface Verify {
-	
-	static int JacksorBetter(Card[] deck ) {
+	//Return positions and number of cards greater 
+	//or equal to Jacks
+	static RetVerify JacksorBetter(Card[] deck ) {
+		int flag=0, aux[]=new int[4];
 		for(int i=0; i<5;i++){
 			if(((deck[i].value+1)%13)<=4){
-				return 0;
+				aux[flag]=i;
+				flag++;
 			}
 		}
-		return 1;
+		RetVerify Ret= new RetVerify(flag);
+		for(int i=0;i<flag; i++){
+			Ret.setPos(aux);
+		}
+		return Ret;
 	}
 	
-	static int TwoPair(Card[] deck ) {
-		int aux[]= new int[5];
+	//Returns the positions of pair(s) and the number
+	//of cards to fulfill Two pairs
+	static RetVerify TwoPair(Card[] deck ) {
+		int aux[]= new int[4], flag=0,flag2=0;
 		for(int i=0; i<5;i++){
-			aux[i]=deck[i].value;
-			for(int j=0; j<i;j++){
-				if((aux[j]%13)==(aux[i]%13)){
-					return 0;
+			flag2=0;
+			if(i<1&&flag>0){
+				for(int k=0;k<flag;k++){
+					if(i==aux[k]){
+						flag2=1;
+						break;
+					}	
 				}
 			}
-		}
-		return 1;
-	}
-	
-	static int ThreeOfaKind(Card[] deck ) {
-		int aux[]= new int[5], flag=0, n_cards_left=0;
-		for(int i=0; i<5;i++){
-			flag=0;
-			aux[i]=deck[i].value;
+			if(flag2==1)
+				continue;
+			
 			for(int j=0; j<i;j++){
-				if((aux[j]%13)==(aux[i]%13)){
-					flag++;
-					n_cards_left=Math.max(flag,n_cards_left);
-					if(flag>=3){
-						return 0;
+				if(j!=i){
+					if(((deck[j].value)%13)==((deck[i].value)%13)){
+						aux[flag]=j;
+						flag++;
+						aux[flag]=i;
+						flag++;
 					}
 				}
 			}
 		}
-		return (3 -n_cards_left);
+		RetVerify Ret= new RetVerify(flag);
+		Ret.setPos(aux);
+		if(flag==0)
+			Ret.n_ret=3;
+		if(flag==2)
+			Ret.n_ret=1;
+		if(flag==4)
+			Ret.n_ret=0;
+		return Ret;
 	}
-	
-	static int FourOfaKind(Card[] deck ) {
+	//Returns the positions of pair(s) and the number
+	//of cards to fulfill ThreeOfaKind
+	static RetVerify ThreeOfaKind(Card[] deck ) {
 		int aux[]= new int[5], flag=0, n_cards_left=0;
 		for(int i=0; i<5;i++){
 			flag=0;
-			aux[i]=deck[i].value;
 			for(int j=0; j<i;j++){
-				if((aux[j]%13)==(aux[i]%13)){
+				if(((deck[j].value)%13)==((deck[i].value)%13)){
 					flag++;
-					n_cards_left=Math.max(flag,n_cards_left);
-					if(flag==4){
-						return 0;
+					if(n_cards_left<flag){
+						n_cards_left=flag;
+						aux[n_cards_left]=j;
+						aux[0]=i;
 					}
 				}
 			}
 		}
-		return (4 -n_cards_left);
+		if(n_cards_left==4)
+			n_cards_left--;
+		RetVerify Ret= new RetVerify(2 -n_cards_left);
+		Ret.setPos(aux);
+		return Ret;
+	}
+	
+	static RetVerify FourOfaKind(Card[] deck ) {
+		int aux[]= new int[5], flag=0, n_cards_left=0;
+		for(int i=0; i<5;i++){
+			flag=0;
+			for(int j=0; j<i;j++){
+				if(((deck[j].value)%13)==((deck[i].value)%13)){
+					flag++;
+					if(n_cards_left<flag){
+						n_cards_left=flag;
+						aux[n_cards_left]=j;
+						aux[0]=i;
+					}
+				}
+			}
+		}
+		RetVerify Ret= new RetVerify(3 -n_cards_left);
+		Ret.setPos(aux);
+		return Ret;
 	}
 	static int Straight(Card[] deck ) {
 		int[] straight={0,1,2,3,4}; 
