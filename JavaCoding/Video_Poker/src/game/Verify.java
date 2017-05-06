@@ -278,7 +278,4 @@ public interface Verify {
 		return null;
 	}
 
-	static boolean Suited(Card[] deck){
-		return true;
-	}
 }
