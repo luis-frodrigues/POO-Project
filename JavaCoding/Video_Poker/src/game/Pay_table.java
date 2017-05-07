@@ -56,7 +56,7 @@ abstract class  Pay_table {
 	int print_paytable(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){
 			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
-			int k=(int) tmp.get(Credit);
+			int k = (int) tmp.get(Credit);
 			return k;
 		}
 		return 0;

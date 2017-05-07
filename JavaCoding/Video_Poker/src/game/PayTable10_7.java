@@ -23,7 +23,7 @@ public class PayTable10_7 extends Pay_table{
 		removeValue(HandTypes[0],5);
 		intsertValue(HandTypes[0],5,4000);
 		
-		//To print pay table uncomment the next lines
+		//To print pay table uncomment the next lines:
 		/*
 			System.out.println("           Paytable ");
 			for(int i=0; i<11;i++){
