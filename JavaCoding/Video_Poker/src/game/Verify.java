@@ -108,7 +108,7 @@ public abstract class  Verify {
 	
 	//Returns the positions of a straight and the number
 	//of cards to fulfill a straight
-	static RetVerify Straight(Card[] deck ) {
+	static RetVerify Straight(Hand deck ) {
 		int[] straight={0,1,2,3,4}; 
 		int flag=0,n_cards_left=0, flag2=0,flag3=0;
 		int aux[]=new int[5];
@@ -118,7 +118,7 @@ public abstract class  Verify {
 			for(int j=0; j<=4;j++){
 				flag2=1;
 				for(int v=0; v<=4;v++){
-					if(straight[v]==((deck[j].getValue())%13)){
+					if(straight[v]==((deck.getPlayerCardValue(j))%13)){
 						aux[flag3]=j+1;
 						flag3++;
 						if(j==0){
@@ -128,7 +128,7 @@ public abstract class  Verify {
 								hold[0]=j;
 						}else{
 							for(int k=0; k<=j;k++){
-								if(((deck[k].getValue())%13)!=((deck[j].getValue())%13))
+								if(((deck.getPlayerCardValue(k))%13)!=((deck.getPlayerCardValue(j))%13))
 									flag2++;
 							}
 							if(flag2!=0&&flag2>=n_cards_left){//Se não der tirar o '='

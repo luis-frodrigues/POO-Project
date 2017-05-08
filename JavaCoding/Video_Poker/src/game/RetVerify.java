@@ -10,8 +10,12 @@ public class RetVerify {
 		posRet= new int [n_ret];
 	}
 	void setPos(int[] positions){
-		for(int i=0;i<size;i++){
-			posRet[i]=positions[i];
+		if(positions==null){
+			posRet=null;
+		}else{
+			for(int i=0;i<size;i++){
+				posRet[i]=positions[i];
+			}
 		}
 	}
 	public int getPosRet(int position) {

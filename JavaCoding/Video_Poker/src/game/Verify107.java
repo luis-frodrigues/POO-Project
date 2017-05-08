@@ -1,6 +1,6 @@
 package game;
 
-public class Verify10_7 extends Verify{
+public class Verify107 extends Verify{
 	//Returns true if 4 Aces and 
 	//false otherwise
 	static boolean FourAces(Hand hand ){
@@ -46,12 +46,62 @@ public class Verify10_7 extends Verify{
 		return false;
 	}
 	
-	static int InsideStraight(Card[] deck ){
-		return 0;
+	//If false returns nRet=-1 and otherwise returns
+	//nRet=1
+	static RetVerify InsideStraight(Hand hand ){
+		RetVerify Ret=Verify.Straight(hand);
+		int maxValue=0,minValue=12;
+		if(Ret.getnRet()!=1){
+			Ret.setNRet(-1);
+			Ret.setPos(null);
+		}
+		//If straight contains an Ace
+		if((Verify107.CardRank(hand, 12))!=-1)
+			return Ret;
+		
+		//Gets Max and Min value of Cards that must be hold
+		//to get a Straight 
+		for(int k=0; k<=3;k++){
+			minValue=Math.min((hand.getPlayerCardValue(Ret.getPosRet(k))%13) , minValue);
+			maxValue=Math.max((hand.getPlayerCardValue(Ret.getPosRet(k))%13) , maxValue);;
+		}
+
+		if((maxValue-minValue)==4)
+			return Ret;
+		
+		Ret.setNRet(-1);
+		Ret.setPos(null);
+		return Ret;
 	}
 	
-	static int OutsideStraight(Card[] deck ){
-		return 0;
+	//If false returns nRet=-1 and otherwise returns
+	//nRet=1
+	static RetVerify OutsideStraight(Hand hand ){
+		RetVerify Ret=Verify.Straight(hand);
+		int maxValue=0,minValue=12;
+		if(Ret.getnRet()!=1){
+			Ret.setNRet(-1);
+			Ret.setPos(null);
+		}
+		//If straight contains an Ace
+		if((Verify107.CardRank(hand, 12))!=-1){
+			Ret.setNRet(-1);
+			Ret.setPos(null);
+			return Ret;
+		}
+		
+		for(int k=0; k<=3;k++){
+			minValue=Math.min((hand.getPlayerCardValue(Ret.getPosRet(k))%13) , minValue);
+			maxValue=Math.max((hand.getPlayerCardValue(Ret.getPosRet(k))%13) , maxValue);;
+		}
+
+		if((maxValue-minValue)==4){
+			Ret.setNRet(-1);
+			Ret.setPos(null);
+			return Ret;
+		}
+		
+		return Ret;
 	}
 
 	static int StraightFlush1(Card[] deck ){
@@ -88,10 +138,10 @@ public class Verify10_7 extends Verify{
 	
 	//Returns the position of the Card or -1
 	//if the Card is not on the deck
-	static int CardRank(Card[] deck, int value_of_card){
+	static int CardRank(Hand hand, int value_of_card){
 		//if(value_of _card<0||value_of _card>51)
 		for(int i=0; i<4;i++){
-			if((deck[i].getValue()%13)==value_of_card%13)
+			if(hand.getPlayerCardValue(i)%13==value_of_card%13)
 				return i;
 		}
 		return -1;
