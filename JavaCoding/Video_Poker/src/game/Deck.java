@@ -1,12 +1,23 @@
 package game;
 
+import java.util.Comparator;
 import java.util.Random;
 
 public class Deck {
 
 	Card [] Deck52;
-	
-	
+	static Comparator<Card> descCardValue;
+	static {
+		descCardValue = new Comparator<Card>(){
+
+			@Override
+			public int compare(Card o1, Card o2) {
+				return Integer.compare(o1.getValue(), o2.getValue());
+			}
+		};     
+        
+		
+	}
 	Deck(){
 		Deck52 = new Card [52];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};

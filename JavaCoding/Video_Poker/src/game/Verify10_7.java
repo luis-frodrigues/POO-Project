@@ -48,7 +48,7 @@ public interface Verify10_7 extends Verify{
 		RetVerify Ret= new RetVerify(3-Aces_needed);
 		if(Aces_needed!=3)
 			Ret.setPos(aux);
-		Ret.n_ret=Aces_needed;
+		Ret.setNRet(Aces_needed);
 		return Ret;
 	}
 	
@@ -67,11 +67,11 @@ public interface Verify10_7 extends Verify{
 	// of cards that should be analyzed and returns true  //
 	// if cards are suited and false otherwise			  //
 	static boolean Suited(RetVerify CardsToVerify ){
-		if(CardsToVerify.n_ret<1)
+		if(CardsToVerify.getnRet()<1)
 			return false;
-		if(CardsToVerify.n_ret==1)
+		if(CardsToVerify.getnRet()==1)
 			return true;
-		for(int i=1; i<CardsToVerify.n_ret;i++){
+		for(int i=1; i<CardsToVerify.getnRet();i++){
 			if((CardsToVerify.getPosRet(i)/13)!=(CardsToVerify.getPosRet(0)/13))
 				return false;
 		}

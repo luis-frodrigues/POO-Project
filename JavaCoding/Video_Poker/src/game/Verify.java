@@ -1,9 +1,12 @@
 package game;
 
+import java.util.Arrays;
+import java.util.Comparator;
 public interface Verify {
+	
 	//Return positions and number of cards greater 
 	//or equal to Jacks
-	static RetVerify JacksorBetter(Card[] deck ) {
+	static RetVerify HighCard(Card[] deck ) {
 		int flag=0, aux[]=new int[4];
 		for(int i=0; i<5;i++){
 			if(((deck[i].getValue()+1)%13)<=4){
@@ -49,11 +52,11 @@ public interface Verify {
 		RetVerify Ret= new RetVerify(flag);
 		Ret.setPos(aux);
 		if(flag==0)
-			Ret.n_ret=3;
+			Ret.setNRet(3);
 		if(flag==2)
-			Ret.n_ret=1;
+			Ret.setNRet(1);
 		if(flag==4)
-			Ret.n_ret=0;
+			Ret.setNRet(0);
 		return Ret;
 	}
 	
@@ -145,7 +148,7 @@ public interface Verify {
 		}
 		RetVerify Ret= new RetVerify(n_cards_left);
 		Ret.setPos(hold);
-		Ret.n_ret=5-n_cards_left;
+		Ret.setNRet(5-n_cards_left);
 		return Ret;
 	}
 	
@@ -183,7 +186,7 @@ public interface Verify {
 		}
 		RetVerify Ret= new RetVerify(n_cards_left);
 		Ret.setPos(hold);
-		Ret.n_ret=5-n_cards_left;
+		Ret.setNRet(5-n_cards_left);
 		
 		
 		return Ret;
@@ -221,8 +224,127 @@ public interface Verify {
 		return false;
 	}
 	
-	static int StarightFlush(Card[] deck ) {
-		return 0;
+	//Returns number of cards to straight flush to hold
+	//and their positions
+	static RetVerify StraightFlush(Card[] deck){
+		
+		int sortedHand5[]=new int [5];
+		int sortedHand4[]=new int [4], sortedHand3[]=new int [3];
+		int nCards[]=new int []{0,0,0,0};
+		int flag=0, isAce=0;
+		int aux[];
+		int valueOfCard[][]= new int [4][5];
+		//Get cards for each suit
+		for(int i=0;i<=4;i++){
+			if(deck[i].getValue()/13==0){//diamonds
+				valueOfCard[0][nCards[0]]=deck[i].getValue();
+				nCards[0]++;
+			}
+			if(deck[i].getValue()/13==1){//spades
+				valueOfCard[1][nCards[1]]=deck[i].getValue();
+				nCards[1]++;
+			}
+			if(deck[i].getValue()/13==2){//clubs
+				valueOfCard[2][nCards[2]]=deck[i].getValue();
+				nCards[2]++;
+			}
+			if(deck[i].getValue()/13==3){//hearts
+				valueOfCard[3][nCards[3]]=deck[i].getValue();
+				nCards[3]++;
+			}
+		}
+		
+		//
+	
+		for(int j=0; j<=3; j++){
+			if(nCards[j]==5){
+				for(int k=0; k<=nCards[j];k++)
+					sortedHand5[k]=valueOfCard[j][k];
+	
+				Arrays.sort(sortedHand5);
+				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+					isAce=1;
+				}
+				if((sortedHand5[4]-sortedHand5[0])==4||isAce==1){
+					RetVerify Ret = new RetVerify(5);
+					Ret.setNRet(5);
+					aux=new int[]{1,2,3,4,5};
+					Ret.setPos(aux);
+					return Ret;
+				}else{
+					if((aux=split(sortedHand5, deck))!=null){
+						RetVerify Ret = new RetVerify(aux.length);
+						Ret.setNRet(aux.length);
+						Ret.setPos(aux);
+						return Ret;
+					}
+				}
+			}else if(nCards[j]==4){
+				for(int k=0; k<=nCards[j];k++)
+					sortedHand4[k]=valueOfCard[j][k];
+				
+				Arrays.sort(sortedHand4);
+				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+					isAce=1;
+				}
+				if(((sortedHand4[3]-sortedHand4[0])<=4)||isAce==1){
+					RetVerify Ret = new RetVerify(4);
+					Ret.setNRet(4);
+					aux=new int[4];
+					for(int k=0; k<=4; k++){	
+						for(int f=0;f<4;f++){
+							if(deck[k].getValue()==sortedHand4[f]){	
+								aux[flag]=k+1;
+								flag++;
+							}
+						}	
+					}
+					Ret.setPos(aux);
+					return Ret;
+				}else{
+					if((aux=split(sortedHand4, deck))!=null){
+						RetVerify Ret = new RetVerify(aux.length);
+						Ret.setNRet(aux.length);
+						Ret.setPos(aux);
+						return Ret;
+					}
+				}
+	
+			}else if(nCards[j]==3){
+				for(int k=0; k<=nCards[j];k++)
+					sortedHand3[k]=valueOfCard[j][k];
+	
+				Arrays.sort(sortedHand3);
+				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+					isAce=1;
+				}
+				if((sortedHand3[2]-sortedHand3[0])<=4||isAce==1){
+					RetVerify Ret = new RetVerify(3);
+					Ret.setNRet(3);
+					aux=new int[3];
+					for(int k=0; k<=4; k++){	
+						for(int f=0;f<3;f++){
+							if(deck[k].getValue()==sortedHand3[f]){	
+								aux[flag]=k+1;
+								flag++;
+							}
+						}	
+					}
+					Ret.setPos(aux);
+					return Ret;
+				}else{
+					if((aux=split(sortedHand3, deck))!=null){
+						RetVerify Ret = new RetVerify(aux.length);
+						Ret.setNRet(aux.length);
+						Ret.setPos(aux);
+						return Ret;
+					}
+				}
+			}
+		}
+		RetVerify Ret = new RetVerify(0);
+		Ret.setNRet(0);
+		return Ret;
 	}
 	
 	//Return number of cards to a RoyalFlush
@@ -251,31 +373,110 @@ public interface Verify {
 		if(diamonds>=spades&&diamonds>=clubs&&diamonds>=hearts){
 			if(diamonds==0){
 				RetVerify Ret= new RetVerify(diamonds);
-				Ret.n_ret=5-diamonds;
+				Ret.setNRet(5-diamonds);
 				return Ret;
 			}
 				
 			RetVerify Ret= new RetVerify(diamonds);
 			Ret.setPos(posDiamonds);
-			Ret.n_ret=5-diamonds;
+			Ret.setNRet(5-diamonds);
 			return Ret;
 		}else if(spades>=diamonds&&spades>=clubs&&spades>=hearts){
 			RetVerify Ret= new RetVerify(spades);
 			Ret.setPos(posSpades);
-			Ret.n_ret=5-spades;
+			Ret.setNRet(5-spades);
 			return Ret;
 		}else if(clubs>=spades&&clubs>=diamonds&&clubs>=hearts){
 			RetVerify Ret= new RetVerify(clubs);
 			Ret.setPos(posClubs);
-			Ret.n_ret=5-clubs;
+			Ret.setNRet(5-clubs);
 			return Ret;
 		}else if(hearts>=diamonds&&hearts>=hearts&&hearts>=diamonds){
 			RetVerify Ret= new RetVerify(hearts);
 			Ret.setPos(posHearts);
-			Ret.n_ret=5-hearts;
+			Ret.setNRet(5-hearts);
 			return Ret;
 		}
 		return null;
 	}
-
+	
+	//Returns 1 if there is only 1 high pair and
+	// return 0 otherwise
+	static RetVerify JacksOrBetter(Card[] deck){
+		int pos[]=new int[5], finalPos[]= new int[2];
+		int highcards=0, result=0;
+		RetVerify Ret= new RetVerify(2);
+		Ret.setNRet(0);
+		for(int i=0; i<4;i++){
+			if(deck[i].getValue()%13>8){
+				pos[highcards]=i;
+				highcards++;
+				if(highcards>1){			
+					for(int j=(highcards-1); j>=0; j--){
+						if((deck[i].getValue()%13)==(deck[pos[j]].getValue()%13)&&(j!=i)){
+							if(result==2)
+								return Ret;
+							finalPos[result]=pos[j]+1;
+							result++;
+							finalPos[result]=pos[i]+1;
+							result++;	
+						}	
+					}
+				}
+			}	
+		}
+		if(highcards==0)
+			return Ret;
+		Ret.setNRet(1);
+		Ret.setPos(finalPos);
+		return Ret;
+	}
+	
+	//Should be private
+	static int [] split(int[] vec, Card[] deck){
+		int size=vec.length-1, flag=0, flagLeft=0, flagRight=0;
+		int aux[]= new int[size];
+		int []leftaux= new int[size];
+		int []rightaux= new int[size];
+		int []splitedAux= new int[size-1];
+	
+		if(size>2){
+			for(int i=0; i<=size; i++){
+				leftaux[i]=vec[i];
+				rightaux[i]=vec[i+1];
+			}
+			if((leftaux[size]-leftaux[0])<=4){
+				for(int k=0; k<=4; k++){	
+					for(int f=0;f<size;f++){
+						if(deck[k].getValue()==leftaux[f]){	
+							aux[flag]=k+1;
+							flag++;
+						}
+					}	
+				}
+				flagLeft=1;
+			}
+			if((rightaux[size]-rightaux[0])<=4){
+				for(int k=0; k<=4; k++){	
+					for(int f=0;f<size;f++){
+						if(deck[k].getValue()==rightaux[f]){	
+							aux[flag]=k+1;
+							flag++;
+						}
+					}	
+				}
+				flagRight=1;
+			}
+			if(flagLeft==1||flagRight==1)
+				return aux;
+			
+			if((splitedAux=split(rightaux,deck))!=null)
+				return splitedAux;
+			if((splitedAux=split(leftaux,deck))!=null)
+				return splitedAux;
+			return null;
+		}
+		return null;
+	}
+		
 }

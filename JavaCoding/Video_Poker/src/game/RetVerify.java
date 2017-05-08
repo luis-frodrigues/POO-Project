@@ -1,22 +1,30 @@
 package game;
 
 public class RetVerify {
-	int n_ret;
+	private int nRet;
 	private int posRet[];
+	private int size;
 	
 	public RetVerify(int n_ret) {
-		this.n_ret=n_ret;
+		size=n_ret;
 		posRet= new int [n_ret];
 	}
 	void setPos(int[] positions){
-		for(int i=0;i<n_ret;i++){
+		for(int i=0;i<size;i++){
 			posRet[i]=positions[i];
 		}
 	}
 	public int getPosRet(int position) {
-		if(position>0&&position<n_ret)
+		if(position>0&&position<size)
 			return posRet[position];
 		return-1;
 	}
-	
+	void setNRet(int nret ){
+		if(nret>=0)
+			nRet=nret;
+	}
+	public int getnRet() {
+		return nRet;
+	}
+		
 }
