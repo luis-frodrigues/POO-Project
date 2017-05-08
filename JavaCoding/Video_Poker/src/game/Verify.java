@@ -2,53 +2,55 @@ package game;
 
 import java.util.Arrays;
 
+
 public abstract class  Verify {
 	
 	//Return positions and number of cards greater 
 	//or equal to Jacks
-	static RetVerify HighCard(Card[] deck ) {
+	static RetVerify HighCard(Hand hand ) {
 		int flag=0, aux[]=new int[4];
 		for(int i=0; i<5;i++){
-			if(((deck[i].getValue()+1)%13)<=4){
+			if(hand.getPlayerCardValue(i)%13>=9){
 				aux[flag]=i+1;
 				flag++;
 			}
 		}
 		RetVerify Ret= new RetVerify(flag);
-		for(int i=0;i<flag; i++){
-			Ret.setPos(aux);
-		}
+		Ret.setPos(aux);
+		Ret.setNRet(flag);
+		
 		return Ret;
 	}
 	
 	//Returns the positions of pair(s) and the number
 	//of cards to fulfill Two pairs
-	static RetVerify TwoPair(Card[] deck ) {
+	static RetVerify TwoPair(Hand hand ) {
 		int aux[]= new int[4], flag=0,flag2=0;
-		for(int i=0; i<5;i++){
+		for(int i=1; i<5;i++){
 			flag2=0;
-			if(i<1&&flag>0){
-				for(int k=0;k<flag;k++){
-					if(i==(aux[k]-1)){
-						flag2=1;
-						break;
-					}	
-				}
-			}
-			if(flag2==1)
-				continue;
 			
 			for(int j=0; j<i;j++){
-				if(j!=i){
-					if(((deck[j].getValue())%13)==((deck[i].getValue())%13)){
-						aux[flag]=j+1;
-						flag++;
-						aux[flag]=i+1;
-						flag++;
+				if(i>1&&flag>0){
+					for(int k=0;k<flag;k++){
+						if(i==(aux[k]-1)||(hand.getPlayerCardValue(i)%13==hand.getPlayerCardValue(aux[k]-1)%13) ){
+							flag2=1;
+							break;
+						}	
 					}
 				}
+				if(flag2==1)
+					continue;
+				
+				if(hand.getPlayerCardValue(j)%13==hand.getPlayerCardValue(i)%13){
+					aux[flag]=j+1;
+					flag++;
+					aux[flag]=i+1;
+					flag++;
+				}
+			
 			}
 		}
+		
 		RetVerify Ret= new RetVerify(flag);
 		Ret.setPos(aux);
 		if(flag==0)
@@ -62,47 +64,55 @@ public abstract class  Verify {
 	
 	//Returns the positions of pair(s) and the number
 	//of cards to fulfill ThreeOfaKind
-	static RetVerify ThreeOfaKind(Card[] deck ) {
-		int aux[]= new int[5], flag=0, n_cards_left=0;
-		for(int i=0; i<5;i++){
+	static RetVerify ThreeOfaKind(Hand hand) {
+		int aux[]= new int[3], flag=0;
+		for(int i=0; i<3;i++){
 			flag=0;
-			for(int j=0; j<i;j++){
-				if(((deck[j].getValue())%13)==((deck[i].getValue())%13)){
-					flag++;
-					if(n_cards_left<flag){
-						n_cards_left=flag;
-						aux[n_cards_left]=j+1;
-						aux[0]=i+1;
+			for(int j=i+1; j<=4;j++){
+				if(hand.getPlayerCardValue(j)%13==hand.getPlayerCardValue(i)%13){
+					if(flag==1){
+						flag++;
+						aux[flag]=j+1;
+						RetVerify Ret= new RetVerify(3);
+						Ret.setPos(aux);
+						Ret.setNRet(1);
+						return Ret;
 					}
+					aux[flag]=i+1;
+					flag++;
+					aux[flag]=j+1;
 				}
 			}
 		}
-		if(n_cards_left==4)
-			n_cards_left--;
-		RetVerify Ret= new RetVerify(2 -n_cards_left);
-		Ret.setPos(aux);
+		RetVerify Ret= new RetVerify(0);
+		Ret.setNRet(-1);
 		return Ret;
 	}
 	
 	//Returns the positions of pair(s) and the number
 	//of cards to fulfill FourOfaKind
-	static RetVerify FourOfaKind(Card[] deck ) {
-		int aux[]= new int[5], flag=0, n_cards_left=0;
-		for(int i=0; i<5;i++){
+	static RetVerify FourOfaKind(Hand hand ) {
+		int aux[]= new int[4], flag=0;
+		for(int i=0; i<2;i++){
 			flag=0;
-			for(int j=0; j<i;j++){
-				if(((deck[j].getValue())%13)==((deck[i].getValue())%13)){
-					flag++;
-					if(n_cards_left<flag){
-						n_cards_left=flag;
-						aux[n_cards_left]=j+1;
-						aux[0]=i+1;
+			aux[flag]=i+1;
+			for(int j=i+1; j<=4;j++){
+				if(hand.getPlayerCardValue(j)%13==hand.getPlayerCardValue(i)%13){
+					if(flag==2){
+						flag++;
+						aux[flag]=j+1;
+						RetVerify Ret= new RetVerify(4);
+						Ret.setPos(aux);
+						Ret.setNRet(1);
+						return Ret;
 					}
+					flag++;
+					aux[flag]=j+1;
 				}
 			}
 		}
-		RetVerify Ret= new RetVerify(3 -n_cards_left);
-		Ret.setPos(aux);
+		RetVerify Ret= new RetVerify(0);
+		Ret.setNRet(0);
 		return Ret;
 	}
 	
@@ -160,14 +170,14 @@ public abstract class  Verify {
 	
 	//Returns the positions of the cards with more equal suits and the number
 	//of cards needed to fulfill a Flush
-	static RetVerify Flush(Card[] deck ) {
-		int flag=1,n_cards_left=1, already_verified=0, flag2=0;
-		int[]aux=new int[4];
-		int[]hold=new int[4];
+	static RetVerify Flush(Hand hand ) {
+		int flag=0, alreadyVerified=0, flag2=0;
+		int[]aux=new int[5];
+		int[]hold=new int[5];
 		for(int i=0;i<4;i++){
-			flag=1;flag2=0;
-			for(int k=0;k < already_verified;k++){
-				if(i==aux[k]){
+			flag=0;flag2=0;
+			for(int k=0;k < alreadyVerified;k++){
+				if(i==aux[k]-1||(hand.getPlayerCardValue(i)/13==hand.getPlayerCardValue(aux[k]-1)/13)){
 					flag2=1;
 					break;
 				}
@@ -175,25 +185,23 @@ public abstract class  Verify {
 			if(flag2==1){
 				continue;
 			}
-			for(int j=0;j<4;j++){
-				if(((deck[i].getValue())/13)==((deck[j].getValue())/13)){
-					if(i!=j){
-						flag++;
-						aux[already_verified]=j;
-						already_verified++;
-						if(n_cards_left>flag){
-							n_cards_left=flag;
-							hold[0]=i+1;
-							hold[n_cards_left]=j+1;
-						}
+			aux[flag]=i+1;
+			for(int j=i+1;j<=4;j++){
+				if(hand.getPlayerCardValue(i)/13==hand.getPlayerCardValue(j)/13){
+					flag++;
+					aux[flag]=j+1;
+					
+					if(flag>alreadyVerified){
+						alreadyVerified=flag;
+						hold[0]=i+1;
+						hold[alreadyVerified]=j+1;
 					}
 				}
 			}
 		}
-		RetVerify Ret= new RetVerify(n_cards_left);
+		RetVerify Ret= new RetVerify(alreadyVerified+1);
 		Ret.setPos(hold);
-		Ret.setNRet(5-n_cards_left);
-		
+		Ret.setNRet(4-alreadyVerified);
 		
 		return Ret;
 	}
