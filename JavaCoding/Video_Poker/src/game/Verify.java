@@ -213,7 +213,7 @@ public abstract class  Verify {
 		int flag1=0,flag2=0, pair=0,three=0,ncycles=1;
 		for(int i=0; i<4;i++){
 			for(int k=0;k<flag1;k++){
-				if(aux[k]==i){
+				if(aux[k]==i||(hand.getPlayerCardValue(i)%13==hand.getPlayerCardValue(aux[k])%13)){
 					flag2=1;
 					break;
 				}
@@ -221,7 +221,7 @@ public abstract class  Verify {
 			if(flag2==1)
 				continue;
 			ncycles=1;
-			for(int j=i+1; j<4;j++){
+			for(int j=i+1; j<=4;j++){
 				if(hand.getPlayerCardValue(i)%13==hand.getPlayerCardValue(j)%13){
 					aux[flag1]=j;
 					flag1++;
@@ -232,9 +232,9 @@ public abstract class  Verify {
 				pair++;
 			if(ncycles==3)
 				three++;
+			if(three==1&&pair==1)
+				return true;
 		}
-		if(three==1&&pair==1)
-			return true;
 		return false;
 	}
 	
