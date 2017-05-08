@@ -1,15 +1,49 @@
 package game;
 
-public interface Verify10_7 extends Verify{
-	static int FourAces(Card[] deck ){
-		return 0;
-	}
-	static int Four24(Card[] deck ){
-		return 0;
+public class Verify10_7 extends Verify{
+	//Returns true if 4 Aces and 
+	//false otherwise
+	static boolean FourAces(Hand hand ){
+		int nAces=0;
+		for(int i=0; i<4;i++){
+			if(hand.getPlayerCardValue(i)%13==12)
+				nAces++;
+		}
+		if(nAces==4)
+			return true;
+		return false;
 	}
 	
-	static int Four5K(Card[] deck ){
-		return 0;
+	//Returns true if Poker of value from 2 to 4  
+	//and false otherwise
+	static boolean Four24(Hand hand ){
+		int value=hand.getPlayerCardValue(0)%13;
+		int nEqualCards=1;
+		if(!(value>=0&&value<=2))
+			return false;
+		for(int i=1; i<4; i++){
+			if(hand.getPlayerCardValue(0)%13==value)
+				nEqualCards++;
+		}
+		if(nEqualCards==4)
+			return true;
+		return false;
+	}
+	
+	//Returns true if Poker of value from 5 to King  
+	//and false otherwise
+	static boolean Four5K(Hand hand ){
+		int value=hand.getPlayerCardValue(0)%13;
+		int nEqualCards=1;
+		if(!(value>=3&&value<=11))
+			return false;
+		for(int i=1; i<4; i++){
+			if(hand.getPlayerCardValue(0)%13==value)
+				nEqualCards++;
+		}
+		if(nEqualCards==4)
+			return true;
+		return false;
 	}
 	
 	static int InsideStraight(Card[] deck ){

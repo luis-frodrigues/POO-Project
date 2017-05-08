@@ -4,7 +4,6 @@ public class Simulation extends Game{
 
 	Simulation(int credit) {
 		super(credit);
-		// TODO Auto-generated constructor stub
 	}
 
 	public String Process1() {
@@ -16,5 +15,10 @@ public class Simulation extends Game{
 	public String Process3() {
 		return null;
 	}
-
+	
+	public void getHand(){
+		
+	}
+	public void holdPlay(String cmd3){
+	}
 }

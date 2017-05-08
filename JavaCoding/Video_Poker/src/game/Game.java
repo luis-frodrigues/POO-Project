@@ -1,13 +1,22 @@
 package game;
 
+import java.io.IOException;
+
 public abstract class Game{
 	Credit credit;
 	Hand hand;
+	int runs;
 	
 	public Game(int credit){
 		this.credit= new Credit(credit);
 		this.hand= new Hand();
-
+		this.runs=0;
+	}
+	
+	public Game(int credit, String[] cardsaux){
+		this.credit= new Credit(credit);
+		this.hand= new Hand(cardsaux);
+		this.runs=0;
 	}
 	
 	static boolean validBet(String cmd1){
@@ -63,22 +72,29 @@ public abstract class Game{
 		int j=0;
 		
 		if (cmd3.length()==0){
+			System.out.println("Erro1;");
 			return(false);
 		}else{
 			if (cmd3.charAt(0)!='h'){
+				System.out.println("Erro2;");
 				return(false);
 			}else{
-				if(cmd3.length()>1){
-					if ((cmd3.charAt(1)==' ')&&(cmd3.length()>2)){
+				if((cmd3.length()>1)){
+					if ((cmd3.length()>2)&&(cmd3.charAt(1)==' ')){
 						cmdaux=cmd3.split(" ");
 						if((cmd3.charAt(2)==' ')||(cmdaux.length>6)){
+							System.out.println("Erro3;");
 							return(false);
 						}else{
-							for(i=1; i<cmdaux.length; i++){
+							for(i=0; i<cmdaux.length; i++){
 								if(cmdaux[i].length()!=1){
+									System.out.println("Erro4;");
 									return(false);
 								}
+							}
+							for(i=1; i<cmdaux.length; i++){
 								if((cmdaux[i].charAt(0)<'1')||(cmdaux[i].charAt(0)>'5')){
+									System.out.println("Erro5;");
 									return (false);
 								}
 							}
@@ -86,14 +102,17 @@ public abstract class Game{
 								return(true);
 							}
 							for(i=1; i<cmdaux.length-1; i++){
-								for(j=i+1; j<cmdaux.length; i++){
+								for(j=i+1; j<cmdaux.length; j++){
 									if(cmdaux[i].charAt(0)==cmdaux[j].charAt(0)){
+										System.out.println("Erro6;");
 										return(false);
 									}
 								}
 							}
 							
 						}
+					}else{
+						return(false);
 					}
 				}
 			}
@@ -101,113 +120,146 @@ public abstract class Game{
 		return(true);
 	}
 	
-	public void init(){
+	public void init() throws IOException{
+		String cmd1;
+		String cmd2;
+		String cmd3;
 		
-		String cmd1="ABC";
-		String cmd2="ABC";
-		String cmd3="ABC";
 
-
-		cmd1=Process1();		//Assume-se que receberá no máximo dois caracteres;
-		
-		while((cmd1!="b")&&(cmd1!="b 1")&&(cmd1!="b 2")&&(cmd1!="b 3")&&(cmd1!="b 4")&&(cmd1!="b 5")){
-			switch(cmd1){
-			case "s":
-				//Apresenta estatísticas
-			break;
-			case "$":
-				System.out.println("player's credit is "+credit.getActual_credit());//Apresenta o crédito atual
-			break;
-			case "q":
-				System.exit(0);//Sai do jogo;
-			break;
-			default:
-				if(!validBet(cmd1)){ //para verificar que comando enviar: illegal command ou illegal amount
-					System.out.println(cmd1 +": illegal command");
-				}else{
-					System.out.println("b: illegal amount");
+		while(true){
+			cmd1=Process1();		//Assume-se que receberá no máximo dois caracteres;
+			
+			while(!(cmd1.equals("b"))&&!(cmd1.equals("b 1"))&&!(cmd1.equals("b 2"))&&!(cmd1.equals("b 3"))&&!(cmd1.equals("b 3"))&&!(cmd1.equals("b 5"))){
+				switch(cmd1){
+				case "s":
+					//Apresenta estatísticas
+				break;
+				case "$":
+					System.out.println("player's credit is "+credit.getActual_credit());//Apresenta o crédito atual
+				break;
+				case "q":
+					System.exit(0);//Sai do jogo;
+				break;
+				case "d":
+					if(runs==0){
+						System.out.println(cmd1 +": illegal command");
+					}
+				break;
+				default:
+					if(!validBet(cmd1)){ //para verificar que comando enviar: illegal command ou illegal amount
+						System.out.println(cmd1 +": illegal command");
+					}else{
+						System.out.println("b: illegal amount");
+					}
+				}
+				if ((cmd1.equals("d"))&&(runs>0)){
+					break;
+				}
+				cmd1=Process1();
+			}
+			
+			switch(cmd1) {
+				case "b":
+					credit.bet();
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "b 1":
+					credit.bet(1);
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "b 2":
+					credit.bet(2);
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "b 3":
+					credit.bet(3);
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "b 4":
+					credit.bet(4);
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "b 5":
+					credit.bet(5);
+					System.out.println("Player is betting "+credit.prev_bet);
+				break;
+				case "d":
+					credit.bet();
+					getHand();
+					hand.printHand();
+				break;
+				default:
+					System.out.println("Error: Command entry is wrong.");// Optional
+			}
+			
+			if(!((runs>0)&&(cmd1.equals("d")))){
+				cmd2=Process2();
+				
+				while(!cmd2.equals("d")){
+					switch(cmd2){
+					case "$":
+						System.out.println("player's credit is "+credit.getActual_credit());//mambos
+					break;
+					case "q":
+						System.exit(0);//leave game;
+					break;
+					default:
+						System.out.println(cmd2+": illegal command");
+						
+					}
+					cmd2=Process2();
+				}
+				
+				switch(cmd2) {
+					case "d":
+						getHand();
+						hand.printHand();
+					break;
+					default:
+						System.out.println("Erro fatal");
 				}
 			}
-			cmd1=Process1();
-		}
-		
-		switch(cmd1) {
-			case "b":
-				credit.bet();
-			break;
-			case "b 1":
-				credit.bet(1);
-			break;
-			case "b 2":
-				credit.bet(2);
-			break;
-			case "b 3":
-				credit.bet(3);
-			break;
-			case "b 4":
-				credit.bet(4);
-			break;
-			case "b 5":
-				credit.bet(5);
-			break;
-			default:
-				System.out.println("Error: Command entry is wrong.");// Optional
-		}
-		
-		cmd2=Process2();
-		
-		while(cmd2!="d"){
-			switch(cmd2){
-			case "$":
-				System.out.println("player's credit is "+credit.getActual_credit());//mambos
-			break;
-			case "q":
-				System.exit(0);//leave game;
-			break;
-			default:
-				System.out.println(cmd2+": illegal command");
 				
+				cmd3= Process3();
+				
+				while(!(validHold(cmd3))){ //enquanto não for nenhum
+					switch(cmd3){
+					case "$":
+						System.out.println("player's credit is "+credit.getActual_credit());//mambos
+					break;
+					case "q":
+						System.exit(0);//leave game;
+					break;
+					case "a":
+						System.out.println("Isto deveria imprimir o advise.");// Fazer o advice
+					break;
+					case "s":
+						System.out.println("Isto deveria imprimir as estatísticas.");// Estatisticas
+					break;
+					default:
+						System.out.println(cmd3+": illegal command");
+					}
+					cmd3=Process3();
+				}
+			
+			
+			
+			
+			holdPlay(cmd3);
+			hand.printHand();
+			
+			if (credit.getActual_credit()<=0){
+				System.out.println("Player has 0 credit. Game Over.");
+				System.exit(0);
 			}
-			cmd2=Process2();
-		}
-		
-		switch(cmd2) {
-			case "d":
-				hand.giveHand();
-			break;
-			default:
-				System.out.println("Erro fatal");
-		}
-		
-		cmd3= Process3();
-		
-		while(!(validHold(cmd3))){ //enquanto não for nenhum
-			switch(cmd3){
-			case "$":
-				System.out.println("player's credit is "+credit.getActual_credit());//mambos
-			break;
-			case "q":
-				System.exit(0);//leave game;
-			break;
-			case "a":
-				// Fazer o advice
-			break;
-			case "s":
-				// Estatisticas
-			break;
-			default:
-				System.out.println(cmd3+": illegal command");
-			}
-			cmd3=Process3();
-		}
-		
-		
-		
+			runs++;
+		}	
 	}
 		
-	
-	public abstract String Process1();
-	public abstract String Process2();
-	public abstract String Process3();
+	public abstract void getHand();	
+	public abstract void holdPlay(String cmd3);
+	public abstract String Process1() throws IOException;
+	public abstract String Process2() throws IOException;
+	public abstract String Process3() throws IOException;
 	
 }

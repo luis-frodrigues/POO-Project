@@ -2,7 +2,7 @@ package game;
 
 import java.util.Arrays;
 
-public interface Verify {
+public abstract class  Verify {
 	
 	//Return positions and number of cards greater 
 	//or equal to Jacks
@@ -113,7 +113,7 @@ public interface Verify {
 		int flag=0,n_cards_left=0, flag2=0,flag3=0;
 		int aux[]=new int[5];
 		int hold[]=new int[5];
-		for(int i=0; i<9;i++){
+		for(int i=0; i<=9;i++){
 			flag=0; flag3=0;
 			for(int j=0; j<=4;j++){
 				flag2=1;
@@ -141,8 +141,14 @@ public interface Verify {
 					}
 				}
 			}
-			straight[0]++; straight[1]++; straight[2]++;
-			straight[3]++;straight[4]++;
+			if(i==8){//To verify low ace straight
+				straight[0]=12; straight[1]=0; straight[2]=1;
+				straight[3]=2;straight[4]=3;
+			}else{
+				straight[0]++; straight[1]++; straight[2]++;
+				straight[3]++;straight[4]++;
+			}
+			
 			if(n_cards_left==5)
 				break;
 		}
@@ -433,7 +439,7 @@ public interface Verify {
 	}
 	
 	//Should be private
-	static int [] split(int[] vec, Card[] deck){
+	private static int [] split(int[] vec, Card[] deck){
 		int size=vec.length-1, flag=0, flagLeft=0, flagRight=0;
 		int aux[]= new int[size];
 		int []leftaux= new int[size];
