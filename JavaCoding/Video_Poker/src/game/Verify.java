@@ -1,7 +1,7 @@
 package game;
 
 import java.util.Arrays;
-import java.util.Comparator;
+
 public interface Verify {
 	
 	//Return positions and number of cards greater 
