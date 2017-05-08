@@ -142,7 +142,7 @@ public class Verify107 extends Verify{
 		//if(value_of _card<0||value_of _card>51)
 		for(int i=0; i<4;i++){
 			if(hand.getPlayerCardValue(i)%13==value_of_card%13)
-				return i;
+				return (i+1);
 		}
 		return -1;
 	}

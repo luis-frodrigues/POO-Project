@@ -240,7 +240,7 @@ public abstract class  Verify {
 	
 	//Returns number of cards to straight flush to hold
 	//and their positions
-	static RetVerify StraightFlush(Card[] deck){
+	static RetVerify StraightFlush(Hand hand){
 		
 		int sortedHand5[]=new int [5];
 		int sortedHand4[]=new int [4], sortedHand3[]=new int [3];
@@ -250,20 +250,20 @@ public abstract class  Verify {
 		int valueOfCard[][]= new int [4][5];
 		//Get cards for each suit
 		for(int i=0;i<=4;i++){
-			if(deck[i].getValue()/13==0){//diamonds
-				valueOfCard[0][nCards[0]]=deck[i].getValue();
+			if(hand.getPlayerCardValue(i)/13==0){//diamonds
+				valueOfCard[0][nCards[0]]=hand.getPlayerCardValue(i)%13;
 				nCards[0]++;
 			}
-			if(deck[i].getValue()/13==1){//spades
-				valueOfCard[1][nCards[1]]=deck[i].getValue();
+			if(hand.getPlayerCardValue(i)/13==1){//spades
+				valueOfCard[1][nCards[1]]=hand.getPlayerCardValue(i);
 				nCards[1]++;
 			}
-			if(deck[i].getValue()/13==2){//clubs
-				valueOfCard[2][nCards[2]]=deck[i].getValue();
+			if(hand.getPlayerCardValue(i)/13==2){//clubs
+				valueOfCard[2][nCards[2]]=hand.getPlayerCardValue(i);
 				nCards[2]++;
 			}
-			if(deck[i].getValue()/13==3){//hearts
-				valueOfCard[3][nCards[3]]=deck[i].getValue();
+			if(hand.getPlayerCardValue(i)/13==3){//hearts
+				valueOfCard[3][nCards[3]]=hand.getPlayerCardValue(i);
 				nCards[3]++;
 			}
 		}
@@ -272,11 +272,11 @@ public abstract class  Verify {
 	
 		for(int j=0; j<=3; j++){
 			if(nCards[j]==5){
-				for(int k=0; k<=nCards[j];k++)
+				for(int k=0; k<nCards[j];k++)
 					sortedHand5[k]=valueOfCard[j][k];
 	
 				Arrays.sort(sortedHand5);
-				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+				if((sortedHand5[4]%13==12)&&((sortedHand5[4])-(sortedHand5[3]))==9){
 					isAce=1;
 				}
 				if((sortedHand5[4]-sortedHand5[0])==4||isAce==1){
@@ -286,7 +286,7 @@ public abstract class  Verify {
 					Ret.setPos(aux);
 					return Ret;
 				}else{
-					if((aux=split(sortedHand5, deck))!=null){
+					if((aux=split(sortedHand5, hand))!=null){
 						RetVerify Ret = new RetVerify(aux.length);
 						Ret.setNRet(aux.length);
 						Ret.setPos(aux);
@@ -294,11 +294,11 @@ public abstract class  Verify {
 					}
 				}
 			}else if(nCards[j]==4){
-				for(int k=0; k<=nCards[j];k++)
+				for(int k=0; k<nCards[j];k++)
 					sortedHand4[k]=valueOfCard[j][k];
 				
 				Arrays.sort(sortedHand4);
-				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[2]))>=9){
 					isAce=1;
 				}
 				if(((sortedHand4[3]-sortedHand4[0])<=4)||isAce==1){
@@ -307,7 +307,7 @@ public abstract class  Verify {
 					aux=new int[4];
 					for(int k=0; k<=4; k++){	
 						for(int f=0;f<4;f++){
-							if(deck[k].getValue()==sortedHand4[f]){	
+							if(hand.getPlayerCardValue(k)==sortedHand4[f]){	
 								aux[flag]=k+1;
 								flag++;
 							}
@@ -316,7 +316,7 @@ public abstract class  Verify {
 					Ret.setPos(aux);
 					return Ret;
 				}else{
-					if((aux=split(sortedHand4, deck))!=null){
+					if((aux=split(sortedHand4, hand))!=null){
 						RetVerify Ret = new RetVerify(aux.length);
 						Ret.setNRet(aux.length);
 						Ret.setPos(aux);
@@ -325,11 +325,11 @@ public abstract class  Verify {
 				}
 	
 			}else if(nCards[j]==3){
-				for(int k=0; k<=nCards[j];k++)
+				for(int k=0; k<nCards[j];k++)
 					sortedHand3[k]=valueOfCard[j][k];
 	
 				Arrays.sort(sortedHand3);
-				if((sortedHand4[3]%13==12)&&((sortedHand4[3])-(sortedHand4[0]))>=9){
+				if((sortedHand4[2]%13==12)&&((sortedHand4[2])-(sortedHand4[1]))>=9){
 					isAce=1;
 				}
 				if((sortedHand3[2]-sortedHand3[0])<=4||isAce==1){
@@ -338,7 +338,7 @@ public abstract class  Verify {
 					aux=new int[3];
 					for(int k=0; k<=4; k++){	
 						for(int f=0;f<3;f++){
-							if(deck[k].getValue()==sortedHand3[f]){	
+							if(hand.getPlayerCardValue(k)==sortedHand3[f]){	
 								aux[flag]=k+1;
 								flag++;
 							}
@@ -347,7 +347,7 @@ public abstract class  Verify {
 					Ret.setPos(aux);
 					return Ret;
 				}else{
-					if((aux=split(sortedHand3, deck))!=null){
+					if((aux=split(sortedHand3, hand))!=null){
 						RetVerify Ret = new RetVerify(aux.length);
 						Ret.setNRet(aux.length);
 						Ret.setPos(aux);
@@ -447,35 +447,53 @@ public abstract class  Verify {
 	}
 	
 	//Should be private
-	private static int [] split(int[] vec, Card[] deck){
-		int size=vec.length-1, flag=0, flagLeft=0, flagRight=0;
+	private static int [] split(int[] vec, Hand hand){
+		int size=vec.length-1, flag2=0,flag1=0, flagLeft=0, flagRight=0;
 		int aux[]= new int[size];
 		int []leftaux= new int[size];
 		int []rightaux= new int[size];
 		int []splitedAux= new int[size-1];
-	
+		
+			
 		if(size>2){
-			for(int i=0; i<=size; i++){
+			//FOR ACE LOW
+			if((hand.getPlayerCardValue(size)%13==12)&&((hand.getPlayerCardValue(size)%13)-(hand.getPlayerCardValue(size-2)%13))>=9){
+				for(int i=0;i<size-1;i++){
+					leftaux[i]=vec[i];
+				}
+				leftaux[size-1]=vec[size];
+				for(int k=0; k<=4; k++){	
+					for(int f=0;f<size;f++){
+						if(hand.getPlayerCardValue(k)==leftaux[f]){	
+							aux[flag1]=k+1;
+							flag1++;
+						}
+					}	
+				}
+				return aux;
+			}//FOR ACE LOW
+			
+			for(int i=0; i<size; i++){
 				leftaux[i]=vec[i];
 				rightaux[i]=vec[i+1];
 			}
-			if((leftaux[size]-leftaux[0])<=4){
+			if((leftaux[size-1]-leftaux[0])<=4){
 				for(int k=0; k<=4; k++){	
 					for(int f=0;f<size;f++){
-						if(deck[k].getValue()==leftaux[f]){	
-							aux[flag]=k+1;
-							flag++;
+						if(hand.getPlayerCardValue(k)==leftaux[f]){	
+							aux[flag1]=k+1;
+							flag1++;
 						}
 					}	
 				}
 				flagLeft=1;
 			}
-			if((rightaux[size]-rightaux[0])<=4){
+			if((rightaux[size-1]-rightaux[0])<=4){
 				for(int k=0; k<=4; k++){	
 					for(int f=0;f<size;f++){
-						if(deck[k].getValue()==rightaux[f]){	
-							aux[flag]=k+1;
-							flag++;
+						if(hand.getPlayerCardValue(k)==rightaux[f]){	
+							aux[flag2]=k+1;
+							flag2++;
 						}
 					}	
 				}
@@ -484,13 +502,12 @@ public abstract class  Verify {
 			if(flagLeft==1||flagRight==1)
 				return aux;
 			
-			if((splitedAux=split(rightaux,deck))!=null)
+			if((splitedAux=split(rightaux,hand))!=null)
 				return splitedAux;
-			if((splitedAux=split(leftaux,deck))!=null)
+			if((splitedAux=split(leftaux,hand))!=null)
 				return splitedAux;
 			return null;
 		}
 		return null;
 	}
-		
 }
