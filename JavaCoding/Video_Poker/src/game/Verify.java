@@ -208,7 +208,7 @@ public abstract class  Verify {
 	
 	//Returns true if the is a FullHouse and
 	//false otherwise
-	static boolean FullHouse(Card[] deck ) {
+	static boolean FullHouse(Hand hand ) {
 		int [] aux= new int [4];
 		int flag1=0,flag2=0, pair=0,three=0,ncycles=1;
 		for(int i=0; i<4;i++){
@@ -222,7 +222,7 @@ public abstract class  Verify {
 				continue;
 			ncycles=1;
 			for(int j=i+1; j<4;j++){
-				if((deck[i].getValue())%13==(deck[j].getValue())%13){
+				if(hand.getPlayerCardValue(i)%13==hand.getPlayerCardValue(j)%13){
 					aux[flag1]=j;
 					flag1++;
 					ncycles++;
