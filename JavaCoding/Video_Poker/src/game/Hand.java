@@ -249,4 +249,5 @@ public class Hand {
 		}
 		return(false);
 	}
-	}
+	
+}
