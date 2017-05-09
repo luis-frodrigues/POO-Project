@@ -2,7 +2,6 @@ package game;
 
 import java.util.Arrays;
 
-
 public abstract class  Verify {
 	
 	//Return positions and number of cards greater 
@@ -62,9 +61,9 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns the positions of pair(s) and the number
-	//of cards to fulfill ThreeOfaKind
-	static RetVerify ThreeOfaKind(Hand hand) {
+	//Returns the positions of the cards that fulfill ThreeOfaKindand
+	// the number and 1 if its verified and 0 otherwise
+	static RetVerify ThreeOfaKind(Hand hand ) {
 		int aux[]= new int[3], flag=0;
 		for(int i=0; i<3;i++){
 			flag=0;
@@ -85,12 +84,12 @@ public abstract class  Verify {
 			}
 		}
 		RetVerify Ret= new RetVerify(0);
-		Ret.setNRet(-1);
+		Ret.setNRet(0);
 		return Ret;
 	}
 	
-	//Returns the positions of pair(s) and the number
-	//of cards to fulfill FourOfaKind
+	//Returns the positions of the cards that fulfill FourOfaKind
+	// the number and 1 if its verified and 0 otherwise
 	static RetVerify FourOfaKind(Hand hand ) {
 		int aux[]= new int[4], flag=0;
 		for(int i=0; i<2;i++){
@@ -120,34 +119,37 @@ public abstract class  Verify {
 	//of cards to fulfill a straight
 	static RetVerify Straight(Hand deck ) {
 		int[] straight={0,1,2,3,4}; 
-		int flag=0,n_cards_left=0, flag2=0,flag3=0;
+		int flag=0,flag3=0, flag2=0;
 		int aux[]=new int[5];
 		int hold[]=new int[5];
 		for(int i=0; i<=9;i++){
-			flag=0; flag3=0;
+			flag3=0;
 			for(int j=0; j<=4;j++){
-				flag2=1;
 				for(int v=0; v<=4;v++){
 					if(straight[v]==((deck.getPlayerCardValue(j))%13)){
-						aux[flag3]=j+1;
-						flag3++;
-						if(j==0){
-							flag++;
-							n_cards_left=Math.max(n_cards_left, flag);
-							if(i==0)
-								hold[0]=j;
-						}else{
-							for(int k=0; k<=j;k++){
-								if(((deck.getPlayerCardValue(k))%13)!=((deck.getPlayerCardValue(j))%13))
-									flag2++;
-							}
-							if(flag2!=0&&flag2>=n_cards_left){//Se não der tirar o '='
-								n_cards_left=Math.max(n_cards_left, flag2);
-								for(int y=0;y<n_cards_left;y++){
-									hold[y]=aux[y];	
+						if(flag3>=1){
+							flag2=0;
+							for(int k=0;k<flag3;k++){
+								if(((deck.getPlayerCardValue(aux[k]-1))%13)==((deck.getPlayerCardValue(j))%13)){
+									flag2=1;
+									break;
 								}
 							}
+							if(flag2!=1){
+								aux[flag3]=j+1;
+								flag3++;
+							}	
+						}else{
+							aux[flag3]=j+1;
+							flag3++;
 						}
+						if(flag3>flag){
+							for(int f=0;f<flag3;f++){
+								hold[f]=aux[f];
+							}
+							flag=flag3;
+						}
+						break;
 					}
 				}
 			}
@@ -159,12 +161,12 @@ public abstract class  Verify {
 				straight[3]++;straight[4]++;
 			}
 			
-			if(n_cards_left==5)
+			if(flag==5)
 				break;
 		}
-		RetVerify Ret= new RetVerify(n_cards_left);
+		RetVerify Ret= new RetVerify(flag);
 		Ret.setPos(hold);
-		Ret.setNRet(5-n_cards_left);
+		Ret.setNRet(5-flag);
 		return Ret;
 	}
 	
@@ -363,23 +365,23 @@ public abstract class  Verify {
 	
 	//Return number of cards to a RoyalFlush
 	//and the cards to hold
-	static RetVerify RoyalFlush(Card[] deck ) {
+	static RetVerify RoyalFlush(Hand hand ) {
 		int diamonds=0,clubs=0,hearts=0, spades=0;
 		int posDiamonds[]=new int [5],posSpades[]=new int [5],posClubs[]=new int [5],posHearts[]=new int [5];
-		for(int i=0; i<4; i++){
-			if(deck[i].getValue()==12||deck[i].getValue()==11||deck[i].getValue()==10||deck[i].getValue()==9||deck[i].getValue()==8 ){
+		for(int i=0; i<=4; i++){
+			if(hand.getPlayerCardValue(i)==12||hand.getPlayerCardValue(i)==11||hand.getPlayerCardValue(i)==10||hand.getPlayerCardValue(i)==9||hand.getPlayerCardValue(i)==8 ){
 				posDiamonds[diamonds]=i+1;
 				diamonds++;
 			}
-			if(deck[i].getValue()==25||deck[i].getValue()==24||deck[i].getValue()==23||deck[i].getValue()==22||deck[i].getValue()==21 ){
+			if(hand.getPlayerCardValue(i)==25||hand.getPlayerCardValue(i)==24||hand.getPlayerCardValue(i)==23||hand.getPlayerCardValue(i)==22||hand.getPlayerCardValue(i)==21 ){
 				posSpades[spades]=i+1;
 				spades++;
 			}
-			if(deck[i].getValue()==38||deck[i].getValue()==37||deck[i].getValue()==36||deck[i].getValue()==35||deck[i].getValue()==34 ){
+			if(hand.getPlayerCardValue(i)==38||hand.getPlayerCardValue(i)==37||hand.getPlayerCardValue(i)==36||hand.getPlayerCardValue(i)==35||hand.getPlayerCardValue(i)==34 ){
 				posClubs[clubs]=i+1;
 				clubs++;
 			}
-			if(deck[i].getValue()==51||deck[i].getValue()==50||deck[i].getValue()==49||deck[i].getValue()==48||deck[i].getValue()==47 ){
+			if(hand.getPlayerCardValue(i)==51||hand.getPlayerCardValue(i)==50||hand.getPlayerCardValue(i)==49||hand.getPlayerCardValue(i)==48||hand.getPlayerCardValue(i)==47 ){
 				posHearts[hearts]=i+1;
 				hearts++;
 			}
@@ -414,34 +416,38 @@ public abstract class  Verify {
 		return null;
 	}
 	
-	//Returns 1 if there is only 1 high pair and
-	// return 0 otherwise
-	static RetVerify JacksOrBetter(Card[] deck){
-		int pos[]=new int[5], finalPos[]= new int[2];
-		int highcards=0, result=0;
-		RetVerify Ret= new RetVerify(2);
-		Ret.setNRet(0);
-		for(int i=0; i<4;i++){
-			if(deck[i].getValue()%13>8){
-				pos[highcards]=i;
-				highcards++;
-				if(highcards>1){			
-					for(int j=(highcards-1); j>=0; j--){
-						if((deck[i].getValue()%13)==(deck[pos[j]].getValue()%13)&&(j!=i)){
-							if(result==2)
-								return Ret;
-							finalPos[result]=pos[j]+1;
-							result++;
-							finalPos[result]=pos[i]+1;
-							result++;	
-						}	
-					}
+	//Returns the number of pairs and their position
+	static RetVerify HighPair(Hand hand){
+		int pos[]=new int[4], finalPos[]= new int[4];
+		int highcards=0, highpairs=0, flag=0;
+		
+		for(int i=0; i<=4;i++){
+			if(hand.getPlayerCardValue(i)%13>8){
+				highcards=0;
+				for(int k=0;k<highpairs;k++){
+					if(finalPos[k]-1==i||(hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(finalPos[k]-1)%13))
+						flag=2;
 				}
-			}	
+				if(flag==2)
+					continue;
+				for(int j=i+1; j<=4; j++){
+					if((hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(j)%13)){
+						if(highcards==0)
+							pos[highcards]=i+1;
+						highcards++;
+						pos[highcards]=j+1;
+					}	
+				}
+				if(highcards==1){
+					finalPos[highpairs]=i+1;
+					highpairs++;
+					finalPos[highpairs]=pos[highcards];
+					highpairs++;
+				}	
+			}		
 		}
-		if(highcards==0)
-			return Ret;
-		Ret.setNRet(1);
+		RetVerify Ret= new RetVerify(highpairs);
+		Ret.setNRet(highpairs/2);
 		Ret.setPos(finalPos);
 		return Ret;
 	}
@@ -510,4 +516,5 @@ public abstract class  Verify {
 		}
 		return null;
 	}
+		
 }
