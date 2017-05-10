@@ -331,7 +331,7 @@ public class Verify107 extends Verify{
 		//if(value_of _card<0||value_of _card>51)
 		for(int i=0; i<=4;i++){
 			if(hand.getPlayerCardValue(i)%13==value_of_card%13)
-				return i;
+				return i+1;
 		}
 		return -1;
 	}
@@ -339,20 +339,20 @@ public class Verify107 extends Verify{
 	//Receives a RetVerify with n_ret equals to the number//
 	// of cards that should be analyzed and returns true  //
 	// if cards are suited and false otherwise			  //
-	static boolean Suited(RetVerify CardsToVerify ){
+	static boolean Suited(RetVerify CardsToVerify, Hand hand ){
 		if(CardsToVerify.getnRet()<1)
 			return false;
 		if(CardsToVerify.getnRet()==1)
 			return true;
 		for(int i=1; i<CardsToVerify.getnRet();i++){
-			if((CardsToVerify.getPosRet(i)/13)!=(CardsToVerify.getPosRet(0)/13))
+			if((hand.getPlayerCardValue(CardsToVerify.getPosRet(i)-1)/13)!=(hand.getPlayerCardValue(CardsToVerify.getPosRet(0)-1)/13))
 				return false;
 		}
 		return true;
 	}
 	
 	//Returns the number of gaps for straight flushes
-	private static int  NumberOfGaps(RetVerify Ret, Hand hand){
+	private static int NumberOfGaps(RetVerify Ret, Hand hand){
 		int vec[]= new int[3], Ace=0, AceLow=0, nGaps=0;
 		for(int i=0;i<3;i++){
 			vec[i]=hand.getPlayerCardValue(Ret.getPosRet(i)-1);
@@ -379,6 +379,16 @@ public class Verify107 extends Verify{
 	private static int HighCard(RetVerify Ret, Hand hand ) {
 		int flag=0;
 		for(int i=0; i<3;i++){
+			if(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13>=9)
+				flag++;
+		}
+		return flag;
+	}
+	
+	//Returns the number of highCards in nCards
+	static int HighCardInNCards(RetVerify Ret, Hand hand, int nCards ) {
+		int flag=0;
+		for(int i=0; i<nCards;i++){
 			if(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13>=9)
 				flag++;
 		}
