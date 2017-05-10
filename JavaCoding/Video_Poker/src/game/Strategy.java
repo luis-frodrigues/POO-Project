@@ -2,15 +2,15 @@ package game;
 
 class Strategy {
 	public static void CheckResult(Hand hand, Credit credit, PayTable107 paytable, Statistics statistics){
-		if(Verify107.HighPair(hand).getnRet()==1){
-			credit.updateActualCredit(paytable.check_payout("Jacks or Better", credit.prev_bet)); 
-			statistics.upJacksorBetter();
-			System.out.println("Player wins with a JACKS OR BETTER and his credit is "+credit.getActual_credit());
-			
-		}else if(Verify107.TwoPair(hand).getnRet()==0){
+		if(Verify107.TwoPair(hand).getnRet()==0){
 			credit.updateActualCredit(paytable.check_payout("Two Pair", credit.prev_bet)); 
 			statistics.upTwoPair();
 			System.out.println("Player wins with a TWO PAIRS and his credit is "+credit.getActual_credit());
+			
+		}else if(Verify107.HighPair(hand).getnRet()==1){
+			credit.updateActualCredit(paytable.check_payout("Jacks or Better", credit.prev_bet)); 
+			statistics.upJacksorBetter();
+			System.out.println("Player wins with a JACKS OR BETTER and his credit is "+credit.getActual_credit());
 			
 		}else if(Verify107.ThreeOfaKind(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Three of a Kind", credit.prev_bet)); 
@@ -75,7 +75,7 @@ class Strategy {
 			return Strategy.StringfyAdvice(Ret, 4);
 			
 		}else if((Ret=Verify107.StraightFlush(hand)).getnRet()==0){//Straight Flush
-			return Strategy.StringfyAdvice(Ret, 5);
+			return "h 1 2 3 4 5";
 			
 		}else if((Ret=Verify107.RoyalFlush(hand)).getnRet()==1){// 4 to Royal Flush
 			return Strategy.StringfyAdvice(Ret, 4);

@@ -227,8 +227,9 @@ public abstract class  Verify {
 		int [] aux= new int [4];
 		int flag1=0,flag2=0, pair=0,three=0,ncycles=1;
 		for(int i=0; i<4;i++){
+			flag2=0;
 			for(int k=0;k<flag1;k++){
-				if(aux[k]==i||(hand.getPlayerCardValue(i)%13==hand.getPlayerCardValue(aux[k])%13)){
+				if(aux[k]==i){
 					flag2=1;
 					break;
 				}
