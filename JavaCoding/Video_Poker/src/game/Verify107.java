@@ -1,11 +1,5 @@
 package game;
-
 import java.util.Arrays;
-
-import teste.Hand;
-import teste.RetVerify;
-import teste.Verify;
-import teste.Verify107;
 
 public class Verify107 extends Verify{
 	//Returns true if 4 Aces and 
@@ -217,25 +211,97 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 	
-	static int StraightFlush2(Card[] deck ){
-		return 0;
-	}
-	
-	static RetVerify StraightFlush3(Hand hand ){
-		RetVerify Ret =Verify.StraightFlush(hand);
+	//Returns 0 if not StraightFlush2 and 1 if it is
+	//with positions of Cards to hold
+	static RetVerify StraightFlush2(Hand hand ){
+		RetVerify Ret= Verify.StraightFlush(hand);
+		int nGaps=0, Verify234=0,VerifyA23=0 , nHighCards=0;
+		int Ace=0, AceLow=0;
 		if(Ret.getnRet()!=3){
 			Ret.setNRet(0);
 			Ret.setPos(null);
 			return Ret;
 		}
-		for(int i=0; i<3;i++){
-			if(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13>8){
+			
+		nGaps=Verify107.NumberOfGaps(Ret, hand);
+		if(nGaps==0){
+			for(int i=0;i<3;i++){
+				if(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0||hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1||hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==2)
+					Verify234++;
+				if(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0||hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1||hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==12)
+					VerifyA23++;
+			}
+			if(Verify234==3||VerifyA23==3){
+				Ret.setNRet(1);
+				return Ret;
+			}
+			Ret.setNRet(0);
+			Ret.setPos(null);
+			return Ret;
+		}else if(nGaps==1){
+			//Verify if AceLow
+			for(int k=0;k<3;k++){
+				if(hand.getPlayerCardValue(Ret.getPosRet(k)-1)%13==12)
+					Ace=1;
+				if(hand.getPlayerCardValue(Ret.getPosRet(k)-1)%13==0||hand.getPlayerCardValue(Ret.getPosRet(k)-1)%13==1||hand.getPlayerCardValue(Ret.getPosRet(k)-1)%13==2)
+					AceLow++;
+			}
+			if(Ace==1&&AceLow==2){
+				Ret.setNRet(1);
+				return Ret;
+			}//Verify if AceLow
+			
+			//Number of HighCards
+			nHighCards=Verify107.HighCard(Ret, hand);
+			if(nHighCards>=1){
 				Ret.setNRet(0);
 				Ret.setPos(null);
 				return Ret;
+			}//Number of HighCards
+			
+			Ret.setNRet(1);
+			return Ret;
+		}else if(nGaps==2){
+			//Number of HighCards
+			nHighCards=Verify107.HighCard(Ret, hand);
+			if(nHighCards!=1){
+				Ret.setNRet(0);
+				Ret.setPos(null);
+				return Ret;
+			}//Number of HighCards
+			Ret.setNRet(1);
+			return Ret;
+		}
+		
+		Ret.setNRet(0);
+		Ret.setPos(null);
+		return Ret;
+	}
+	
+	//Returns 0 if not StraightFlush3 and 1 if it is
+	//with positions of Cards to hold
+	static RetVerify StraightFlush3(Hand hand ){
+		RetVerify Ret =Verify.StraightFlush(hand);
+		int nGaps=0, nHighCards=0;
+		if(Ret.getnRet()!=3){
+			Ret.setNRet(0);
+			Ret.setPos(null);
+			return Ret;
+		}
+		nGaps=Verify107.NumberOfGaps(Ret, hand);
+		if(nGaps==2){
+			nHighCards=Verify107.HighCard(Ret, hand);
+			if(nHighCards==0){
+				Ret.setNRet(1);
+				return Ret;
 			}
-		}	
-		Ret.setNRet(1);
+			Ret.setNRet(0);
+			Ret.setPos(null);
+			return Ret;
+		}
+		
+		Ret.setNRet(0);
+		Ret.setPos(null);
 		return Ret;
 	}
 	
