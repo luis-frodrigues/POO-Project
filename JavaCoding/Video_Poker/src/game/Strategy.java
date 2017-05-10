@@ -58,7 +58,9 @@ class Strategy {
 			System.out.println("Payer wins with a FLUSH and his credit is "+credit.getActual_credit());
 			
 		}else{
+			credit.updateActualCredit(-credit.prev_bet); 
 			System.out.println("Payer loses and his credit is "+credit.getActual_credit());
+			
 		}
 	}
 	public void Advice(Hand hand, Credit credit, PayTable107 paytable, Statistics statistics){
