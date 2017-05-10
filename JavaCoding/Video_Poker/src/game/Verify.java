@@ -64,7 +64,8 @@ public abstract class  Verify {
 	//Returns the positions of the cards that fulfill ThreeOfaKindand
 	// the number and 1 if its verified and 0 otherwise
 	static RetVerify ThreeOfaKind(Hand hand ) {
-		int aux[]= new int[3], flag=0;
+		int aux[]= new int[3], flag=0, threeOfAKind=0;
+		RetVerify Ret;
 		for(int i=0; i<3;i++){
 			flag=0;
 			for(int j=i+1; j<=4;j++){
@@ -72,18 +73,30 @@ public abstract class  Verify {
 					if(flag==1){
 						flag++;
 						aux[flag]=j+1;
-						RetVerify Ret= new RetVerify(3);
-						Ret.setPos(aux);
-						Ret.setNRet(1);
+						threeOfAKind=1;
+						continue;
+						
+					}
+					if(flag==2){
+						Ret= new RetVerify(0);
+						Ret.setNRet(0);
 						return Ret;
 					}
+					if(flag==0){
 					aux[flag]=i+1;
 					flag++;
 					aux[flag]=j+1;
+					}
 				}
 			}
+			if(threeOfAKind==1){
+				Ret= new RetVerify(3);
+				Ret.setPos(aux);
+				Ret.setNRet(1);
+				return Ret;
+			}
 		}
-		RetVerify Ret= new RetVerify(0);
+		Ret= new RetVerify(0);
 		Ret.setNRet(0);
 		return Ret;
 	}

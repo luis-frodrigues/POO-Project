@@ -22,6 +22,9 @@ public class Credit {
 		return actual_credit;
 	}
 
+	public void updateActualCredit(int payout){
+		this.actual_credit += payout;
+	}
 	public void setActual_credit(int actual_credit) {
 		this.actual_credit = actual_credit;
 	}
