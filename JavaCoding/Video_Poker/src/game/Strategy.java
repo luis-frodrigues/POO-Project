@@ -74,7 +74,7 @@ class Strategy {
 		}else if((Ret=Verify107.FourOfaKind(hand)).getnRet()==1){//Four of a Kind
 			return Strategy.StringfyAdvice(Ret, 4);
 			
-		}else if((Ret=Verify107.StraightFlush(hand)).getnRet()==0){//Straight Flush
+		}else if((Ret=Verify107.StraightFlush(hand)).getnRet()==5){//Straight Flush
 			return "h 1 2 3 4 5";
 			
 		}else if((Ret=Verify107.RoyalFlush(hand)).getnRet()==1){// 4 to Royal Flush

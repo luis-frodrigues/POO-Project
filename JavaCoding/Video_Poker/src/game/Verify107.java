@@ -78,9 +78,9 @@ public class Verify107 extends Verify{
 		}
 		if(Ace==1){
 			for(int i=0;i<4;i++){
-				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==9)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==10)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==11))	
+				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==9)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==10)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==11)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==8))	
 					HighAce++;
-				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==2))	
+				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==2)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==3))	
 					LowAce++;
 			}
 			if(HighAce==3||LowAce==3)
@@ -122,9 +122,9 @@ public class Verify107 extends Verify{
 		}
 		if(Ace==1){
 			for(int i=0;i<4;i++){
-				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==9)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==10)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==11))	
+				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==9)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==10)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==11)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==8))	
 					HighAce++;
-				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==2))	
+				if((hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==0)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==1)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==2)||(hand.getPlayerCardValue(Ret.getPosRet(i)-1)%13==3))	
 					LowAce++;
 			}
 			if(HighAce==3||LowAce==3){
