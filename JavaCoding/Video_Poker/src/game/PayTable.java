@@ -2,13 +2,13 @@ package game;
 
 import java.util.Hashtable;
 
-abstract class  Pay_table {
+abstract class  PayTable {
 	private int elem_on_table=0;
 	private int max_pay_types=0;
 	protected int max_credits=0;
 	protected Hashtable<Object, Object> PayTable;
 		
-	Pay_table(int max_pay_types, int max_credits){
+	PayTable(int max_pay_types, int max_credits){
 		PayTable = new Hashtable<Object, Object>();
 		this.max_credits=max_credits;
 		this.max_pay_types=max_pay_types;
@@ -20,7 +20,6 @@ abstract class  Pay_table {
 			Hashtable<Object, Integer> tmp=  (Hashtable<Object, Integer>) PayTable.get(HandType);
 			if(tmp.size()<max_credits){
 				tmp.put(Credit, Value);
-				System.out.println(Value);
 			}else{
 				System.out.println("Max credits reached");
 			}
@@ -30,7 +29,6 @@ abstract class  Pay_table {
 				aux.put(Credit, Value);
 				PayTable.put(HandType, aux);
 				elem_on_table++;
-				System.out.println(Value);
 			}else{
 				System.out.println("Table at full capacity");
 			}

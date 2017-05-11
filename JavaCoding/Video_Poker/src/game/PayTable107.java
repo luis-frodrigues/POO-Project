@@ -1,8 +1,8 @@
 package game;
 
-public class PayTable10_7 extends Pay_table{
+public class PayTable107 extends PayTable{
 
-	PayTable10_7() {
+	PayTable107() {
 		super(11, 5);
 		String[] HandTypes= new String[11];
 		
@@ -10,7 +10,7 @@ public class PayTable10_7 extends Pay_table{
 		HandTypes[2]="Four Aces";		HandTypes[3]="Four 2-4";		
 		HandTypes[4]="Four 5-K";		HandTypes[5]="Full House";
 		HandTypes[6]="Flush";	   	 	HandTypes[7]="Straight";
-		HandTypes[8]="Three of a kind";	HandTypes[9]="Two Pair";
+		HandTypes[8]="Three of a Kind";	HandTypes[9]="Two Pair";
 		HandTypes[10]="Jacks or Better";
 		int[] credit={250, 50, 160, 80, 50, 10, 7, 5, 3, 1, 1};
 		
