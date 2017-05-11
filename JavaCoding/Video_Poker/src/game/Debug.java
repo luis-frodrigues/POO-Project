@@ -1,6 +1,9 @@
 package game;
 //import java.io.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class Debug extends Game {
 
 	int cmdcount=0;
@@ -76,5 +79,39 @@ public class Debug extends Game {
 	public void holdPlay(String cmd3){
 		cardcount= cardcount + hand.Hold(cmd3, cardcount);
 	}
-
+	
+	public static String Readfile(String txt){
+		FileReader fp;
+		BufferedReader reader=null;
+		String file="";
+		String fileaux="";
+		String f="";
+		try{
+		fp = new FileReader(txt);
+		reader = new BufferedReader(fp);
+		}
+		catch(Exception e){
+			System.out.println("Couldn't open the file: " +txt);
+			System.exit(0);
+		}
+		try{
+			while((fileaux=reader.readLine())!=null){
+				file = file + " " + fileaux;
+			}			
+		}
+		catch(Exception e){
+			System.out.println("Couldn't read file: " +txt);
+			System.exit(0);
+		}
+		file=file.trim();
+		String[] filex = file.split("\\s+");
+		
+		if (filex.length>0){
+			f=filex[0];
+		}
+		for(int i=1;i<filex.length;i++){
+			f=f + " " +filex[i];
+		}
+		return f;
+	}
 }

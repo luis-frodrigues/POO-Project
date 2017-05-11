@@ -1,10 +1,10 @@
 package game;
-
 public class Card {
 
-	private char suits;
-	private char rank;
-	private int value;
+	char suits;
+	char rank;
+	int value;
+	
 	Card(char suit, char ranks, int values){
 		suits = suit;
 		rank= ranks;
@@ -38,7 +38,7 @@ public class Card {
 			return false;
 		return true;
 	}
-
+	
 	public char getSuit(){
 		return (this.suits);
 	}

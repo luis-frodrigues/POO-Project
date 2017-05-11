@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Arrays;
+
 public class RetVerify {
 	private int nRet;
 	private int posRet[];
@@ -19,7 +21,7 @@ public class RetVerify {
 		}
 	}
 	public int getPosRet(int position) {
-		if(position>0&&position<size)
+		if(position>=0&&position<size)
 			return posRet[position];
 		return-1;
 	}
@@ -29,6 +31,10 @@ public class RetVerify {
 	}
 	public int getnRet() {
 		return nRet;
+	}
+	@Override
+	public String toString() {
+		return "Return int=" + nRet + ", posRet=" + Arrays.toString(posRet);
 	}
 		
 }

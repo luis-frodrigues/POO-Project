@@ -1,41 +1,45 @@
 package game;
 
 public class Credit {
-	private int initial_credit;
-	private int actual_credit;
-	int prev_bet=5;
+	private int initialCredit;
+	private int actualCredit;
+	int prevBet=5;
 	
 	public Credit(int credit){
-		setInitial_credit(credit);
-		setActual_credit(credit);
+		setInitialCredit(credit);
+		setActualCredit(credit);
 	}
 
-	public int getInitial_credit() {
-		return initial_credit;
+	public int getInitialCredit() {
+		return initialCredit;
 	}
 
-	public void setInitial_credit(int initial_credit) {
-		this.initial_credit = initial_credit;
+	public void setInitialCredit(int initialCredit) {
+		this.initialCredit = initialCredit;
 	}
 
-	public int getActual_credit(){
-		return actual_credit;
+	public int getActualCredit(){
+		return actualCredit;
 	}
-
+	
+	public int getPrevBet(){
+		return prevBet;
+	}
+	
 	public void updateActualCredit(int payout){
-		this.actual_credit += payout;
+		this.actualCredit += payout;
 	}
-	public void setActual_credit(int actual_credit) {
-		this.actual_credit = actual_credit;
+	public void setActualCredit(int actualCredit) {
+		this.actualCredit = actualCredit;
 	}
 	
 	public void bet(){
-		bet(this.prev_bet);
+		bet(this.prevBet);
 	}
 	
 	public void bet(int credit){
-		this.actual_credit=this.actual_credit-credit;
-		this.prev_bet=credit;
+		this.actualCredit=this.actualCredit-credit;
+		this.prevBet=credit;
 	}
 	
 }

@@ -2,17 +2,7 @@ package game;
 
 public class Hand {
 
-	private Card [] playerHand;
-	public int getPlayerCardValue(int position) {
-		if(position>=0&&position<5)
-			return playerHand[position].getValue();
-		return -1;
-	}
-
-	public void setPlayer_hand(Card[] playerHand) {
-		this.playerHand = playerHand;
-	}
-
+	Card [] playerHand;
 	Deck deck;
 	
 	public Hand(){
@@ -48,7 +38,6 @@ public class Hand {
 			case 0: 
 				newcards=deck.GiveNewCards(5);
 				playerHand=newcards;
-				deck.printDeck(0);
 				break;
 			case 1: 
 				newcards=deck.GiveNewCards(4);
@@ -184,18 +173,6 @@ public class Hand {
 				}
 				j++;
 			}
-	
-		/*int vec[]= new int[n_holds];
-		for(int i=0; i<n_holds; i++){
-			vec[i]=Integer.parseInt(temp[i+1])-1;
-			newcards[4-i]=this.player_hand[Integer.parseInt(temp[i+1])-1];
-		}
-		for(int i=0;i<n_holds;i++){
-			player_hand[vec[i]]=newcards[vec[i]];
-			newcards[vec[i]]=newcards[4-i];
-			newcards[4-i]=player_hand[vec[i]];
-		}
-		this.player_hand= newcards;*/
 	}	
 	
 	public void giveHand(){
@@ -215,7 +192,6 @@ public class Hand {
 		}
 		
 		for(pos=cardcount;pos<cardcount+5;pos++){
-			System.out.println(cardcount);
 			playerHand[pos-cardcount]= deck.getCardFromDeck(pos);
 			if (playerHand[pos-cardcount]==null){
 				System.exit(0);
@@ -241,13 +217,16 @@ public class Hand {
 		
 		for(i=0; i<playerHand.length-1; i++){
 			for(j=i+1; j<playerHand.length; j++){
-				if(playerHand[i].getValue() ==playerHand[j].getValue()){
-					System.out.println("Erro6;");
+				if(playerHand[i].value==playerHand[j].value){
 					return(true);
 				}
 			}
 		}
 		return(false);
 	}
-	
+	public int getPlayerCardValue(int position) {
+		if(position>=0&&position<5)
+			return playerHand[position].getValue();
+		return -1;
+	}
 }

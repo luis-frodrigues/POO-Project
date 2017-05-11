@@ -4,7 +4,7 @@ class Statistics {
 
 	private int[] stats = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	
-	void printstatistics (Credit credit){
+	void printstatistics (Credit credit){ //print out the statistics table
 		
 		int sum = 0, actualCredit, inicialCredit;
 		float gain;
@@ -28,8 +28,8 @@ class Statistics {
 		System.out.println("Total              " + sum + "   ");
 		System.out.println("________________________");
 		
-		actualCredit=credit.getActual_credit();
-		inicialCredit=credit.getInitial_credit();
+		actualCredit=credit.getActualCredit();
+		inicialCredit=credit.getInitialCredit();
 		gain = (float) actualCredit/inicialCredit;
 		gain = gain*100;
 		System.out.print("Credit      " + actualCredit + "(");

@@ -20,7 +20,6 @@ abstract class  PayTable {
 			Hashtable<Object, Integer> tmp=  (Hashtable<Object, Integer>) PayTable.get(HandType);
 			if(tmp.size()<max_credits){
 				tmp.put(Credit, Value);
-				System.out.println(Value);
 			}else{
 				System.out.println("Max credits reached");
 			}
@@ -30,7 +29,6 @@ abstract class  PayTable {
 				aux.put(Credit, Value);
 				PayTable.put(HandType, aux);
 				elem_on_table++;
-				System.out.println(Value);
 			}else{
 				System.out.println("Table at full capacity");
 			}

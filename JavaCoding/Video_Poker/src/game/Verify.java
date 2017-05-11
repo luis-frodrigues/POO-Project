@@ -62,7 +62,8 @@ public abstract class  Verify {
 	}
 	
 	//Returns the positions of the cards that fulfill ThreeOfaKindand
-	// the number and 1 if its verified and 0 otherwise
+	// the number and 1 if its verified and 0 otherwise including 
+	//when FourOfAKind
 	static RetVerify ThreeOfaKind(Hand hand ) {
 		int aux[]= new int[3], flag=0, threeOfAKind=0;
 		RetVerify Ret;
@@ -430,7 +431,7 @@ public abstract class  Verify {
 		return null;
 	}
 	
-	//Returns the number of High pairs and their position
+	//Returns the number of pairs and their position
 	static RetVerify HighPair(Hand hand){
 		int pos[]=new int[4], finalPos[]= new int[4];
 		int highcards=0, highpairs=0, flag=0;
@@ -462,42 +463,6 @@ public abstract class  Verify {
 		}
 		RetVerify Ret= new RetVerify(highpairs);
 		Ret.setNRet(highpairs/2);
-		Ret.setPos(finalPos);
-		return Ret;
-	}
-	
-	//Returns the number of Low pairs and their position
-	static RetVerify LowPair(Hand hand){
-		int pos[]=new int[4], finalPos[]= new int[4];
-		int lowcards=0, lowpairs=0, flag=0;
-		
-		for(int i=0; i<=4;i++){
-			if(hand.getPlayerCardValue(i)%13<=8){
-				lowcards=0;
-				for(int k=0;k<lowpairs;k++){
-					if(finalPos[k]-1==i||(hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(finalPos[k]-1)%13))
-						flag=2;
-				}
-				if(flag==2)
-					continue;
-				for(int j=i+1; j<=4; j++){
-					if((hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(j)%13)){
-						if(lowcards==0)
-							pos[lowcards]=i+1;
-						lowcards++;
-						pos[lowcards]=j+1;
-					}	
-				}
-				if(lowcards==1){
-					finalPos[lowpairs]=i+1;
-					lowpairs++;
-					finalPos[lowpairs]=pos[lowcards];
-					lowpairs++;
-				}	
-			}		
-		}
-		RetVerify Ret= new RetVerify(lowpairs);
-		Ret.setNRet(lowpairs/2);
 		Ret.setPos(finalPos);
 		return Ret;
 	}
@@ -566,5 +531,41 @@ public abstract class  Verify {
 		}
 		return null;
 	}
+	
+	//Returns the number of Low pairs and their position
+			static RetVerify LowPair(Hand hand){
+				int pos[]=new int[4], finalPos[]= new int[4];
+				int lowcards=0, lowpairs=0, flag=0;
+				
+				for(int i=0; i<=4;i++){
+					if(hand.getPlayerCardValue(i)%13<=8){
+						lowcards=0;
+						for(int k=0;k<lowpairs;k++){
+							if(finalPos[k]-1==i||(hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(finalPos[k]-1)%13))
+								flag=2;
+						}
+						if(flag==2)
+							continue;
+						for(int j=i+1; j<=4; j++){
+							if((hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(j)%13)){
+								if(lowcards==0)
+									pos[lowcards]=i+1;
+								lowcards++;
+								pos[lowcards]=j+1;
+							}	
+						}
+						if(lowcards==1){
+							finalPos[lowpairs]=i+1;
+							lowpairs++;
+							finalPos[lowpairs]=pos[lowcards];
+							lowpairs++;
+						}	
+					}		
+				}
+				RetVerify Ret= new RetVerify(lowpairs);
+				Ret.setNRet(lowpairs/2);
+				Ret.setPos(finalPos);
+				return Ret;
+			}
 		
 }

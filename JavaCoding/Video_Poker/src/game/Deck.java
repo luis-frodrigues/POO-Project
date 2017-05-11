@@ -6,6 +6,7 @@ public class Deck {
 
 	Card [] Deck52;
 	
+	
 	Deck(){
 		Deck52 = new Card [52];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
@@ -17,22 +18,28 @@ public class Deck {
 		}
 	}
 	
-	Deck(String[] cardsaux){ // não quero que seja public;
+	public Deck(String[] cardsaux){ // não quero que seja public;
+		boolean Error;
 		Deck52 = new Card[cardsaux.length];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 		final char[] suits={'D','S','C','H'};
 		
 		for(int i=0; i<cardsaux.length; i++){
+			Error=true;
 			for (int j=0;j<ranks.length;j++){
 				if(cardsaux[i].charAt(0)==(ranks[j])){
-					//System.out.print(ranks[j]);
+					Error=false;
 					for(int z=0; z<suits.length; z++){
 						if(cardsaux[i].charAt(1)==(suits[z])){
-							//System.out.print(suits[z]+ " ");
+							Error=false;
 							Deck52[i]= new Card(suits[z], ranks[j],j+(z*13));
 						}
 					}
 				}
+			}
+			if (Error){
+				System.out.println("There is an invalid card in your card file. Please go check it.");
+				System.exit(1);
 			}
 		}
 	}
@@ -50,16 +57,16 @@ public class Deck {
 	}
 	
 	public void printDeck(int from){ //não quero que seja public
-		if((from>=0)&&(from<Deck52.length)){
-			for(int i=from; i<Deck52.length;i++){
-				System.out.print(Deck52[i]+" ");
+			if((from>=0)&&(from<Deck52.length)){
+				for(int i=from; i<Deck52.length;i++){
+					System.out.print(Deck52[i]+" ");
+				}
+				System.out.println();
+			}else{
+				System.out.println("Not a valid position of the Deck");
 			}
-			System.out.println();
-		}else{
-			System.out.println("Not a valid position of the Deck");
 		}
-	}
-
+	
 	Card getCardFromDeck(int pos){
 		if(Deck52.length<pos){
 			System.out.println("Deck does not have the required position");
@@ -95,14 +102,12 @@ public class Deck {
 		}
 		return newcards;
 	}
-	
 	public boolean checkEnoughCards(int cardcount, int n_cards){
-		System.out.println("Cardcount="+cardcount);
-		System.out.println("Length of deck="+Deck52.length);
 		if(Deck52.length>=cardcount+(n_cards)){
 			return(true);
 		}else{
 			return(false);
 		}
 	}
+	
 }
