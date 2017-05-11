@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class Deck {
 
-	Card [] Deck52;
-	
+	protected Card [] Deck52;
 	
 	Deck(){
 		Deck52 = new Card [52];
@@ -18,7 +17,7 @@ public class Deck {
 		}
 	}
 	
-	public Deck(String[] cardsaux){ // não quero que seja public;
+	Deck(String[] cardsaux){ // protected
 		boolean Error;
 		Deck52 = new Card[cardsaux.length];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
@@ -56,18 +55,18 @@ public class Deck {
 		}
 	}
 	
-	public void printDeck(int from){ //não quero que seja public
-			if((from>=0)&&(from<Deck52.length)){
-				for(int i=from; i<Deck52.length;i++){
-					System.out.print(Deck52[i]+" ");
-				}
-				System.out.println();
-			}else{
-				System.out.println("Not a valid position of the Deck");
+	public void printDeck(int from){
+		if((from>=0)&&(from<Deck52.length)){
+			for(int i=from; i<Deck52.length;i++){
+				System.out.print(Deck52[i]+" ");
 			}
+			System.out.println();
+		}else{
+			System.out.println("Not a valid position of the Deck");
 		}
+	}
 	
-	Card getCardFromDeck(int pos){
+	public Card getCardFromDeck(int pos){
 		if(Deck52.length<pos){
 			System.out.println("Deck does not have the required position");
 			return(null);
@@ -77,7 +76,7 @@ public class Deck {
 		}
 	}
 	
-	Card[] GiveNewCards(int n_cards){
+	public Card[] GiveNewCards(int n_cards){
 		Card[] newcards= new Card[5];
 		for(int i=5; i<5+n_cards; i++){
 			newcards[i-5]= this.Deck52[i];
@@ -85,9 +84,9 @@ public class Deck {
 		return newcards;	
 	}
 	
-	Card[] GiveNewCards(int n_cards, int cardcount){
+	public Card[] GiveNewCards(int n_cards, int cardcount){
 		Card[] newcards= new Card[5];
-		if (this.Deck52.length<cardcount){
+		if (this.Deck52.length<cardcount+n_cards){
 			System.out.println("The provided card file does not have enough cards.");
 			System.exit(0);
 		}
@@ -102,6 +101,7 @@ public class Deck {
 		}
 		return newcards;
 	}
+	
 	public boolean checkEnoughCards(int cardcount, int n_cards){
 		if(Deck52.length>=cardcount+(n_cards)){
 			return(true);

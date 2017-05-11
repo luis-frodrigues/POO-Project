@@ -217,13 +217,14 @@ public class Hand {
 		
 		for(i=0; i<playerHand.length-1; i++){
 			for(j=i+1; j<playerHand.length; j++){
-				if(playerHand[i].value==playerHand[j].value){
+				if(playerHand[i].getValue()==playerHand[j].getValue()){
 					return(true);
 				}
 			}
 		}
 		return(false);
 	}
+	
 	public int getPlayerCardValue(int position) {
 		if(position>=0&&position<5)
 			return playerHand[position].getValue();

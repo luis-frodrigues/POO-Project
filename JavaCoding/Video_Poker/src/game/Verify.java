@@ -6,6 +6,12 @@ public abstract class  Verify {
 	
 	//Return positions and number of cards greater 
 	//or equal to Jacks
+	/**
+	 * HighCard(Hand hand )
+	 * @param hand
+	 * @return Return positions and number of cards greater 
+	 * or equal to Jacks
+	 */
 	static RetVerify HighCard(Hand hand ) {
 		int flag=0, aux[]=new int[4];
 		for(int i=0; i<5;i++){

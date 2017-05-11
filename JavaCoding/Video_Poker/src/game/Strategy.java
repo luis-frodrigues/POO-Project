@@ -6,12 +6,12 @@ class Strategy {
 			credit.updateActualCredit(paytable.check_payout("Two Pair", credit.getPrevBet())); 
 			statistics.upTwoPair();
 			System.out.println("Player wins with a TWO PAIRS and his credit is "+credit.getActualCredit());
-			
+		
 		}else if(Verify107.HighPair(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Jacks or Better", credit.getPrevBet())); 
 			statistics.upJacksorBetter();
 			System.out.println("Player wins with a JACKS OR BETTER and his credit is "+credit.getActualCredit());
-			
+			Verify.h
 		}else if(Verify107.ThreeOfaKind(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Three of a Kind", credit.getPrevBet())); 
 			statistics.upThreeofaKind();
@@ -59,7 +59,7 @@ class Strategy {
 			
 		}else{
 			System.out.println("Player loses and his credit is "+credit.getActualCredit());
-			
+			statistics.upOther();
 		}
 	}
 	public static String Advice(Hand hand){

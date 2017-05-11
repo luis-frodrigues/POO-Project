@@ -1,9 +1,9 @@
 package game;
 public class Card {
 
-	char suits;
-	char rank;
-	int value;
+	private char suits;
+	private char rank;
+	private int value;
 	
 	Card(char suit, char ranks, int values){
 		suits = suit;
@@ -19,6 +19,10 @@ public class Card {
 		result = prime * result + suits;
 		result = prime * result + value;
 		return result;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 	@Override

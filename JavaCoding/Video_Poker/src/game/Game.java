@@ -1,11 +1,11 @@
 package game;
 
 public abstract class Game{
-	Credit credit;
-	Hand hand;
-	Statistics stat;
-	PayTable107 paytable;
-	int runs;
+	protected Credit credit;
+	protected Hand hand;
+	protected Statistics stat;
+	protected PayTable107 paytable;
+	protected int runs;
 	
 	public Game(int credit){
 		if (credit<=0){
@@ -174,8 +174,7 @@ public abstract class Game{
 		}
 		return(cmd3);
 	}
-	
-	
+		
 	static boolean validBet(String cmd1){
 		String cmdaux[];
 		boolean isInteger=true;
@@ -351,7 +350,7 @@ public abstract class Game{
 						System.out.println("Your credit is negative. Game Over!");
 						System.exit(0);
 					}
-					System.out.println("Player is betting "+credit.prevBet);
+					System.out.println("Player is betting "+credit.getPrevBet());
 				break;
 				case "b 1":
 					credit.bet(1);

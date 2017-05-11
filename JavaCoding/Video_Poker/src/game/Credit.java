@@ -3,7 +3,7 @@ package game;
 public class Credit {
 	private int initialCredit;
 	private int actualCredit;
-	int prevBet=5;
+	private int prevBet=5;
 	
 	public Credit(int credit){
 		setInitialCredit(credit);
@@ -29,6 +29,7 @@ public class Credit {
 	public void updateActualCredit(int payout){
 		this.actualCredit += payout;
 	}
+	
 	public void setActualCredit(int actualCredit) {
 		this.actualCredit = actualCredit;
 	}

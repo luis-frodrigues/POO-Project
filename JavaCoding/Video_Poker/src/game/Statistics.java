@@ -37,34 +37,34 @@ class Statistics {
 		System.out.println("%)");
 	}
 	
-	void upJacksorBetter(){
+	public void upJacksorBetter(){
 		stats[0]++;
 	}
-	void upTwoPair(){
+	public void upTwoPair(){
 		stats[1]++;
 	}
-	void upThreeofaKind(){
+	public void upThreeofaKind(){
 		stats[2]++;
 	}
-	void upStraight(){
+	public void upStraight(){
 		stats[3]++;
 	}
-	void upFlush(){
+	public void upFlush(){
 		stats[4]++;
 	}
-	void upFullHouse(){
+	public void upFullHouse(){
 		stats[5]++;
 	}
-	void upFourofaKind(){
+	public void upFourofaKind(){
 		stats[6]++;
 	}
-	void upStraightFlush(){
+	public void upStraightFlush(){
 		stats[7]++;
 	}
-	void upRoyalFlush(){
+	public void upRoyalFlush(){
 		stats[8]++;
 	}
-	void upOther(){
+	public void upOther(){
 		stats[9]++;
 	}
 	
