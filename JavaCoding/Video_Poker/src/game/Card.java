@@ -21,10 +21,18 @@ public class Card {
 		return result;
 	}
 
+	/**Set the value of card.
+	 * @param value Value of card
+	 */
 	public void setValue(int value) {
 		this.value = value;
 	}
 
+	/** 
+	 * The object is equal if the value of card is 
+	 * the same.
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -34,23 +42,28 @@ public class Card {
 		if (getClass() != obj.getClass())
 			return false;
 		Card other = (Card) obj;
-		if (rank != other.rank)
-			return false;
-		if (suits != other.suits)
-			return false;
 		if (value != other.value)
 			return false;
 		return true;
 	}
 	
+	/**
+	 * @return Returns the suit of the card
+	 */
 	public char getSuit(){
 		return (this.suits);
 	}
 	
+	/**
+	 * @return Returns the rank of the card
+	 */
 	public char getRank(){
 		return (this.rank);
 	}
 	
+	/**
+	 * @return Returns the value of the card
+	 */
 	public int getValue(){
 		return(value);
 	}

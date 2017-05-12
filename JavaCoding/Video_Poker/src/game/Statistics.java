@@ -4,7 +4,14 @@ class Statistics {
 
 	private int[] stats = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	
-	void printstatistics (Credit credit){ //print out the statistics table
+	/**
+	 * It prints out the statistics of the game.
+	 * @param credit
+	 * The credit is used to know the initial credit
+	 * and the actual credit:
+	 * 
+	 */
+	void printstatistics (Credit credit){ 
 		
 		int sum = 0, actualCredit, inicialCredit;
 		float gain;
@@ -36,34 +43,63 @@ class Statistics {
 		System.out.printf("%.2f", gain);
 		System.out.println("%)");
 	}
-	
+	/**
+	 *increments the statistics of JacksorBetter 
+	 */
 	public void upJacksorBetter(){
 		stats[0]++;
 	}
+	/**
+	 * increments the statistics of TwoPair
+	 */
 	public void upTwoPair(){
 		stats[1]++;
 	}
+	/**
+	 * increments the statistics of ThreeofaKind
+	 */
 	public void upThreeofaKind(){
 		stats[2]++;
 	}
+	/**
+	 * increments the statistics of Straight
+	 */
 	public void upStraight(){
 		stats[3]++;
 	}
+	/**
+	 * increments the statistics of Flush 
+	 */
 	public void upFlush(){
 		stats[4]++;
 	}
+	/**
+	 * increments the statistics of FullHouse
+	 */
 	public void upFullHouse(){
 		stats[5]++;
 	}
+	/**
+	 * increments the statistics of FourofaKind
+	 */
 	public void upFourofaKind(){
 		stats[6]++;
 	}
+	/**
+	 * increments the statistics of StraightFlush
+	 */
 	public void upStraightFlush(){
 		stats[7]++;
 	}
+	/**
+	 * increments the statistics of RoyalFlush
+	 */
 	public void upRoyalFlush(){
 		stats[8]++;
 	}
+	/**
+	 * increments the statistics of Other
+	 */
 	public void upOther(){
 		stats[9]++;
 	}

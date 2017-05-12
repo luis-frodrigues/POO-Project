@@ -1,6 +1,15 @@
 package game;
 
 class Strategy {
+	/**
+	 * Given a Hand it checks its value, update the credit 
+	 * and the statistics of the game.
+	 * @param hand
+	 * @param credit
+	 * @param paytable
+	 * Paytable to verify the pay out amount of the hand
+	 * @param statistics
+	 */
 	public static void CheckResult(Hand hand, Credit credit, PayTable107 paytable, Statistics statistics){
 		if(Verify107.TwoPair(hand).getnRet()==0){
 			credit.updateActualCredit(paytable.check_payout("Two Pair", credit.getPrevBet())); 
@@ -11,7 +20,7 @@ class Strategy {
 			credit.updateActualCredit(paytable.check_payout("Jacks or Better", credit.getPrevBet())); 
 			statistics.upJacksorBetter();
 			System.out.println("Player wins with a JACKS OR BETTER and his credit is "+credit.getActualCredit());
-			Verify.h
+			
 		}else if(Verify107.ThreeOfaKind(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Three of a Kind", credit.getPrevBet())); 
 			statistics.upThreeofaKind();
@@ -62,6 +71,15 @@ class Strategy {
 			statistics.upOther();
 		}
 	}
+	/**
+	 * Analyzes the given hand and returns the cards that should be hold
+	 * accordingly to our strategy. 
+	 * @param hand
+	 * Receives a Hand in order to give an advice
+	 * related with it. 
+	 * @return Returns a string with the best advice 
+	 * for the given hand in terms of our strategy. 
+	 */
 	public static String Advice(Hand hand){
 		String Advice;
 		RetVerify Ret;
@@ -231,6 +249,16 @@ class Strategy {
 		}
 	}
 
+	/**
+	 * Converts the positions of the cards that must be hold into 
+	 * a string with the format "h <positions on hand>". The number
+	 * of cards to be hold is required.
+	 * @param Ret
+	 * Is a RetVerify with the positions of the cards that must be hold
+	 * @param nHolds
+	 * Is the number of cards that must be hold.
+	 * @return a string with the format "h <positions on hand>".
+	 */
 	private static String StringfyAdvice(RetVerify Ret, int nHolds){
 		String Advice="h";
 		for(int i=0; i<nHolds; i++){

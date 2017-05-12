@@ -5,8 +5,7 @@ import java.util.Random;
 public class Deck {
 
 	protected Card [] Deck52;
-	
-	Deck(){
+	protected Deck(){
 		Deck52 = new Card [52];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
 		final char[] suits={'D','S','C','H'};
@@ -17,7 +16,17 @@ public class Deck {
 		}
 	}
 	
-	Deck(String[] cardsaux){ // protected
+	/**
+	* Receives a string with cards and creates a deck with
+	* those cards. Only cards in valid format are inserted 
+	* on the deck. Format valid of the suits is "D" or "C" 
+	* or "H" or "D".Format valid of the Ranks is "2" or "3"
+	* or "4" or "5"or "6" or "7" or "8" or "9" or "T" or 
+	* "J" or "Q" or "K" or "A". Also the format of the card 
+	*  is Rank+Suit => "2S". 
+	* @param cardsaux
+	*/
+	protected Deck(String[] cardsaux){ // protected
 		boolean Error;
 		Deck52 = new Card[cardsaux.length];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
@@ -43,11 +52,15 @@ public class Deck {
 		}
 	}
 	
-	void shuffle(int from){
+	/**
+	 * Shuffles the deck from the "int from" position.
+	 * @param from
+	 */
+	protected void shuffle(int from){
 		int index;
 		Card  temp;
 		Random random = new Random();
-		for(int i =51; i>=from;i--){
+		for(int i =(Deck52.length-1); i>=from;i--){
 			index = random.nextInt(i+1-from)+from;
 			temp = Deck52[index];
 			Deck52[index]= Deck52[i];
@@ -55,6 +68,10 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * Prints the deck from a certain position "from"
+	 * @param from
+	 */
 	public void printDeck(int from){
 		if((from>=0)&&(from<Deck52.length)){
 			for(int i=from; i<Deck52.length;i++){
@@ -66,6 +83,12 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * Gives the card in the position "pos" of the deck.
+	 * @param pos
+	 * @return Returns the card in the position "pos"
+	 * of the deck.
+	 */
 	public Card getCardFromDeck(int pos){
 		if(Deck52.length<pos){
 			System.out.println("Deck does not have the required position");
@@ -76,6 +99,12 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * Gives "nCards" from the 5th position of the
+	 * the deck  
+	 * @param n_cards
+	 * @return
+	 */
 	public Card[] GiveNewCards(int n_cards){
 		Card[] newcards= new Card[5];
 		for(int i=5; i<5+n_cards; i++){
@@ -84,15 +113,25 @@ public class Deck {
 		return newcards;	
 	}
 	
-	public Card[] GiveNewCards(int n_cards, int cardcount){
-		Card[] newcards= new Card[5];
-		if (this.Deck52.length<cardcount+n_cards){
+	/**
+	 * Gives new number of Cards(nCards) from the position
+	 * cardcount of the deck. 
+	 * @param nCards
+	 * @param cardcount
+	 * @return Returns an array of size nCards in which 
+	 * are inserted th
+	 * e Cards after the position cardcount
+	 * of the deck. 
+	 */
+	public Card[] GiveNewCards(int nCards, int cardcount){
+		Card[] newcards= new Card[nCards];
+		if (this.Deck52.length<cardcount+nCards){
 			System.out.println("The provided card file does not have enough cards.");
 			System.exit(0);
 		}
-		for(int i=cardcount; i<cardcount+n_cards; i++){
+		for(int i=cardcount; i<cardcount+nCards; i++){
 			newcards[i-cardcount]= this.Deck52[i];
-			for(int j=cardcount-1; j>cardcount-6; j--){
+			for(int j=cardcount-1; j>=0; j--){
 				if(newcards[i-cardcount].getValue()==Deck52[j].getValue()){
 					System.out.println("This card has already been played in this play. Please check your Card file.");
 					System.exit(0);

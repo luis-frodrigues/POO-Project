@@ -10,12 +10,10 @@ public class Debug extends Game {
 	int cardcount=0;
 	
 	String[] cmdaux;
-	String[] cardsaux;
 	
 	public Debug(int credit, String[] cmdaux, String[] cardsaux) {
 		super(credit, cardsaux);
 		this.cmdaux=cmdaux;
-		this.cardsaux=cardsaux;
 	}
 
 	public String Process1() {

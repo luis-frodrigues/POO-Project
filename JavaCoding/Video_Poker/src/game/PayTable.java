@@ -36,7 +36,7 @@ abstract class  PayTable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	int check_payout(Object HandType, Object Credit){
+	public int check_payout(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){
 			Hashtable<Object,Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
 			if(tmp.containsKey(Credit)){
@@ -51,7 +51,7 @@ abstract class  PayTable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	int print_paytable(Object HandType, Object Credit){
+	public int print_paytable(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){
 			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
 			int k = (int) tmp.get(Credit);
@@ -61,7 +61,7 @@ abstract class  PayTable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	void removeValue(Object HandType, Object Credit){
+	public void removeValue(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){
 			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
 			if(tmp.containsKey(Credit)){

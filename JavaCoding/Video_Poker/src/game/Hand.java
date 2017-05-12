@@ -2,13 +2,14 @@ package game;
 
 public class Hand {
 
-	Card [] playerHand;
-	Deck deck;
+	private Card [] playerHand;
+	private Deck deck;
 	
 	public Hand(){
 		deck = new Deck();
 		playerHand = new Card[5];
 	}
+
 	
 	public Hand(String[] cardsaux){
 		deck = new Deck(cardsaux);
@@ -16,44 +17,52 @@ public class Hand {
 		deck.printDeck(0);
 	}
 	
+	/**
+	 * Holds cards from position 1 to 5. The format of the
+	 * string received must be "h <d> <d> <d> <d> <d>", where
+	 * <d> can be only a number from 1 to 5. The number of <d>
+	 * can go from 0 to 5 and must be different. The Hand will
+	 * get new cards to replace the ones discarded.
+	 * @param hold
+	 */
 	public void Hold(String hold){
 		String[] temp;
-		int n_holds;
+		int nHolds;
 		Card[] newcards;
 		temp=hold.split(" ");
 		if(temp.length>6 ||temp.length==0){
 			System.out.println("TOO MANY ARGUMENTS");
 		}else{
-			n_holds=temp.length-1;
+			nHolds=temp.length-1;
 			deck.shuffle(5);
 
 			//Check Valid Inputs
-			for(int i=0; i<n_holds;i++){
+			for(int i=0; i<nHolds;i++){
 				if(Character.getNumericValue((temp[i+1].charAt(0)))<1||Character.getNumericValue((temp[i+1].charAt(0)))>5){
 					System.out.println("INVALID FORMAT IN HOLD ARGUMENS");
 					return;
 				}
 			}//
-			switch (n_holds) {
+			switch (nHolds) {
 			case 0: 
 				newcards=deck.GiveNewCards(5);
 				playerHand=newcards;
 				break;
 			case 1: 
 				newcards=deck.GiveNewCards(4);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				break;
 			case 2: 
 				newcards=deck.GiveNewCards(3);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				break;
 			case 3: 
 				newcards=deck.GiveNewCards(2);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				break;
 			case 4: 
 				newcards=deck.GiveNewCards(1);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				break;
 			case 5: //Case where you re not supposed to take any card away
 				break;
@@ -64,25 +73,34 @@ public class Hand {
 		}
 	}
 	
+	/**
+	 * Insert the holded cards in a new deck with the new 
+	 * cards needed. Start to replace from the end of new 
+	 * deck, which don't have yet Nholds Cards
+	 * @param hold number of cards to hold
+	 * @param cardcount position of deck from where the new cards
+	 * should be retrieved
+	 * @return Returns the number of cards discarded
+	 */
 	public int Hold(String hold, int cardcount){
 		String[] temp;
-		int n_holds;
+		int nHolds;
 		Card[] newcards;
 		temp=hold.split(" ");
 		if(temp.length>6 ||temp.length==0){
 			System.out.println("TOO MANY ARGUMENTS");
 			return (-1);
 		}else{
-			n_holds=temp.length-1;
+			nHolds=temp.length-1;
 
 			//Check Valid Inputs
-			for(int i=0; i<n_holds;i++){
+			for(int i=0; i<nHolds;i++){
 				if(Character.getNumericValue((temp[i+1].charAt(0)))<1||Character.getNumericValue((temp[i+1].charAt(0)))>5){
 					System.out.println("INVALID FORMAT IN HOLD ARGUMENTS");
 					return (-1);
 				}
 			}//
-			switch (n_holds) {
+			switch (nHolds) {
 			case 0:
 				if (!deck.checkEnoughCards(cardcount, 5)){
 					System.out.println("The provided card file does not have enough cards to discard everything. Please check your card file.");
@@ -102,7 +120,7 @@ public class Hand {
 					System.exit(0);
 				}
 				newcards=deck.GiveNewCards(4, cardcount);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				if(repeat()){ //it checks if there are repeated cards in the Deck
 					System.out.println("There are repeated cards in your hand. Please check your card file.");
 					System.exit(0);
@@ -114,7 +132,7 @@ public class Hand {
 					System.exit(0);
 				}
 				newcards=deck.GiveNewCards(3, cardcount);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				if(repeat()){ //it checks if there are repeated cards in the Deck
 					System.out.println("There are repeated cards in your hand. Please check your card file.");
 					System.exit(0);
@@ -126,7 +144,7 @@ public class Hand {
 					System.exit(0);
 				}
 				newcards=deck.GiveNewCards(2, cardcount);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				if(repeat()){ //it checks if there are repeated cards in the Deck
 					System.out.println("There are repeated cards in your hand. Please check your card file.");
 					System.exit(0);
@@ -138,7 +156,7 @@ public class Hand {
 					System.exit(0);
 				}
 				newcards=deck.GiveNewCards(1, cardcount);
-				replace(newcards, temp, n_holds);
+				replace(newcards, temp, nHolds);
 				if(repeat()){ //it checks if there are repeated cards in the Deck
 					System.out.println("There are repeated cards in your hand. Please check your card file.");
 					System.exit(0);
@@ -151,10 +169,9 @@ public class Hand {
 				break;
 			}
 		}
-		return(5-n_holds);
+		return(5-nHolds);
 	}
-	//INSERT THE HOLDED CARDS IN A NEW DECK WITH THE NEW CARDS NEEDED
-	//START TO REPLACE FROM THE END OF NEW DECK, WHICH DONT HAVE YET n_holds CARDS
+	
 	private void replace(Card[] newcards, String[] temp, int n_holds){
 		int vec[]= new int[5];
 		int j=0;
@@ -183,7 +200,7 @@ public class Hand {
 		}
 	}
 	
-	public void giveHand(String[] cmdaux, int cardcount){
+	protected void giveHand(String[] cmdaux, int cardcount){
 		int pos=0;
 		
 		if (!deck.checkEnoughCards(cardcount, 5)){
@@ -203,10 +220,13 @@ public class Hand {
 		}
 	}
 		
+	/**
+	 * Prints the cards in the Hand
+	 */
 	public void printHand(){
 		int i=0;
 		System.out.print("player's hand ");
-		for(i=0; i<5;i++){
+		for(i=0; i<playerHand.length;i++){
 			System.out.print(playerHand[i]+" ");	
 		}
 		System.out.println();
@@ -225,6 +245,12 @@ public class Hand {
 		return(false);
 	}
 	
+	/**Gets the value of a card in a certain position 
+	 * of the Hand.
+	 * @param position
+	 * @return Returns the value of the card in 
+	 * a certain position "position" of the Hand.
+	 */
 	public int getPlayerCardValue(int position) {
 		if(position>=0&&position<5)
 			return playerHand[position].getValue();

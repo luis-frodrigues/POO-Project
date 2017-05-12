@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public abstract class  Verify {
 	
-	//Return positions and number of cards greater 
-	//or equal to Jacks
 	/**
-	 * HighCard(Hand hand )
-	 * @param hand
+	 * HighCard can be used to verify how many HiCards
+	 * are in the given Hand. Also gives the positions of
+	 * the HighCards on the Hand
+	 * @param hand Receives a Hand
 	 * @return Return positions and number of cards greater 
 	 * or equal to Jacks
 	 */
@@ -26,9 +26,16 @@ public abstract class  Verify {
 		
 		return Ret;
 	}
+
 	
-	//Returns the positions of pair(s) and the number
-	//of cards to fulfill Two pairs
+	/** 
+	 * TwoPair can be used to know how many Cards are needed
+	 * to fulfill the play TwoPairs. Also gives the positions
+	 * of cards to be hold in order to make a TwoPair play
+	 * @param hand Receives a Hand
+	 * @return Returns the positions of pair(s) and the number
+	 * of cards to fulfill Two pairs
+	 */
 	static RetVerify TwoPair(Hand hand ) {
 		int aux[]= new int[4], flag=0,flag2=0;
 		for(int i=1; i<5;i++){
@@ -67,9 +74,15 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns the positions of the cards that fulfill ThreeOfaKindand
-	// the number and 1 if its verified and 0 otherwise including 
-	//when FourOfAKind
+	/**
+	 * ThreeOfaKind can be used to verify how many cards are
+	 * needed to fulfill a ThreeOfaKind and the positions of 
+	 * the cards needed to hold.
+	 * @param hand
+	 * @return Returns the positions of the cards that fulfill ThreeOfaKindand
+	 * the number and 1 if its verified and 0 otherwise including 
+	 * when FourOfAKind
+	 */
 	static RetVerify ThreeOfaKind(Hand hand ) {
 		int aux[]= new int[3], flag=0, threeOfAKind=0;
 		RetVerify Ret;
@@ -108,8 +121,14 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns the positions of the cards that fulfill FourOfaKind
-	// the number and 1 if its verified and 0 otherwise
+	/**
+	 * FourOfaKind be used to verify how many cards are
+	 * needed to fulfill a FourOfaKind and the positions of 
+	 * the cards needed to hold.
+	 * @param hand
+	 * @return Returns the positions of the cards that fulfill FourOfaKind
+	 * the number and 1 if its verified and 0 otherwise
+	 */
 	static RetVerify FourOfaKind(Hand hand ) {
 		int aux[]= new int[4], flag=0;
 		for(int i=0; i<2;i++){
@@ -135,8 +154,15 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns the positions of a straight and the number
-	//of cards to fulfill a straight
+	/**
+	 * Straight can be used to verify how many cards are
+	 * needed to fulfill a Straight and the positions of 
+	 * the cards needed to hold.
+	 * @param deck
+	 * @return Returns the positions and the number of 
+	 * the cards that can fulfill a straight with less
+	 *  number of new cards. 
+	 */
 	static RetVerify Straight(Hand deck ) {
 		int[] straight={0,1,2,3,4}; 
 		int flag=0,flag3=0, flag2=0;
@@ -190,8 +216,15 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns the positions of the cards with more equal suits and the number
-	//of cards needed to fulfill a Flush
+	/**
+	 * Flush can be used to verify how many cards are
+	 * needed to fulfill a Flush and the positions of 
+	 * the cards needed to hold.
+	 * @param hand
+	 * @return Returns the positions of the cards with
+	 * more equal suits and the number of cards needed
+	 *  to fulfill a Flush
+	 */
 	static RetVerify Flush(Hand hand ) {
 		int flag=0, alreadyVerified=0, flag2=0;
 		int[]aux=new int[5];
@@ -228,8 +261,13 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Returns true if the is a FullHouse and
-	//false otherwise
+	/**
+	 * FullHouse verifies if the given hand 
+	 * contains a FullHouse 
+	 * @param hand
+	 * @return Returns true if the given hand
+	 * is a FullHouse and false otherwise
+	 */
 	static boolean FullHouse(Hand hand ) {
 		int [] aux= new int [4];
 		int flag1=0,flag2=0, pair=0,three=0,ncycles=1;
@@ -261,8 +299,15 @@ public abstract class  Verify {
 		return false;
 	}
 	
-	//Returns number of cards to straight flush to hold
-	//and their positions
+	/**
+	 * StraightFlush verify how the max number of cards
+	 * that can perform, as a set, StraightFlush. Also
+	 * gives the positions of those cards in the hand.
+	 * @param hand
+	 * @return Returns number of cards that must be hold
+	 * in order to make a straight flush and their 
+	 * positions
+	 */
 	static RetVerify StraightFlush(Hand hand){
 		
 		int sortedHand5[]=new int [5];
@@ -384,8 +429,14 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Return number of cards to a RoyalFlush
-	//and the cards to hold
+	/**
+	 * RoyalFlush can be used to verify how many cards are
+	 * needed to fulfill a RoyalFlush and the positions of 
+	 * the cards needed to hold.
+	 * @param hand
+	 * @return Return the number of cards to perform a 
+	 * RoyalFlush and their positions 
+	 */
 	static RetVerify RoyalFlush(Hand hand ) {
 		int diamonds=0,clubs=0,hearts=0, spades=0;
 		int posDiamonds[]=new int [5],posSpades[]=new int [5],posClubs[]=new int [5],posHearts[]=new int [5];
@@ -437,7 +488,14 @@ public abstract class  Verify {
 		return null;
 	}
 	
-	//Returns the number of pairs and their position
+	/**
+	 * HighPair verify how many HighPairs are in the hand
+	 * and their positions. If there are any High ThreeOfaKind 
+	 * or any High FourOfaKind in the hand doesn't count as a
+	 * HighPair.
+	 * @param hand
+	 * @return Returns the number of high pairs and their positions.
+	 */
 	static RetVerify HighPair(Hand hand){
 		int pos[]=new int[4], finalPos[]= new int[4];
 		int highcards=0, highpairs=0, flag=0;
@@ -473,7 +531,6 @@ public abstract class  Verify {
 		return Ret;
 	}
 	
-	//Should be private
 	private static int [] split(int[] vec, Hand hand){
 		int size=vec.length-1, flag2=0,flag1=0, flagLeft=0, flagRight=0;
 		int aux[]= new int[size];
@@ -538,40 +595,47 @@ public abstract class  Verify {
 		return null;
 	}
 	
-	//Returns the number of Low pairs and their position
-			static RetVerify LowPair(Hand hand){
-				int pos[]=new int[4], finalPos[]= new int[4];
-				int lowcards=0, lowpairs=0, flag=0;
-				
-				for(int i=0; i<=4;i++){
-					if(hand.getPlayerCardValue(i)%13<=8){
-						lowcards=0;
-						for(int k=0;k<lowpairs;k++){
-							if(finalPos[k]-1==i||(hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(finalPos[k]-1)%13))
-								flag=2;
-						}
-						if(flag==2)
-							continue;
-						for(int j=i+1; j<=4; j++){
-							if((hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(j)%13)){
-								if(lowcards==0)
-									pos[lowcards]=i+1;
-								lowcards++;
-								pos[lowcards]=j+1;
-							}	
-						}
-						if(lowcards==1){
-							finalPos[lowpairs]=i+1;
-							lowpairs++;
-							finalPos[lowpairs]=pos[lowcards];
-							lowpairs++;
-						}	
-					}		
+	/**
+	 * LowPair verify how many LowPairs are in the hand
+	 * and their positions. If there are any Low ThreeOfaKind 
+	 * or any Low FourOfaKind in the hand doesn't count as a
+	 * HighPair.
+	 * @param hand
+	 * @return Returns the number of low pairs and their positions.
+	 */
+	static RetVerify LowPair(Hand hand){
+		int pos[]=new int[4], finalPos[]= new int[4];
+		int lowcards=0, lowpairs=0, flag=0;
+		
+		for(int i=0; i<=4;i++){
+			if(hand.getPlayerCardValue(i)%13<=8){
+				lowcards=0;
+				for(int k=0;k<lowpairs;k++){
+					if(finalPos[k]-1==i||(hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(finalPos[k]-1)%13))
+						flag=2;
 				}
-				RetVerify Ret= new RetVerify(lowpairs);
-				Ret.setNRet(lowpairs/2);
-				Ret.setPos(finalPos);
-				return Ret;
-			}
+				if(flag==2)
+					continue;
+				for(int j=i+1; j<=4; j++){
+					if((hand.getPlayerCardValue(i)%13)==(hand.getPlayerCardValue(j)%13)){
+						if(lowcards==0)
+							pos[lowcards]=i+1;
+						lowcards++;
+						pos[lowcards]=j+1;
+					}	
+				}
+				if(lowcards==1){
+					finalPos[lowpairs]=i+1;
+					lowpairs++;
+					finalPos[lowpairs]=pos[lowcards];
+					lowpairs++;
+				}	
+			}		
+		}
+		RetVerify Ret= new RetVerify(lowpairs);
+		Ret.setNRet(lowpairs/2);
+		Ret.setPos(finalPos);
+		return Ret;
+	}
 		
 }
