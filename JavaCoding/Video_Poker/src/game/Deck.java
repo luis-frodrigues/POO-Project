@@ -26,7 +26,7 @@ public class Deck {
 	*  is Rank+Suit => "2S". 
 	* @param cardsaux
 	*/
-	protected Deck(String[] cardsaux){ // protected
+	Deck(String[] cardsaux){ // protected
 		boolean Error;
 		Deck52 = new Card[cardsaux.length];
 		final char[] ranks={'2','3','4','5','6','7','8','9','T','J','Q','K','A'};
@@ -141,7 +141,14 @@ public class Deck {
 		return newcards;
 	}
 	
-	public boolean checkEnoughCards(int cardcount, int n_cards){
+	/**
+	 * Checks if that are enough cards for the corresponding 
+	 * comand
+	 * @param cardcount
+	 * @param n_cards
+	 * @return
+	 */
+	protected boolean checkEnoughCards(int cardcount, int n_cards){
 		if(Deck52.length>=cardcount+(n_cards)){
 			return(true);
 		}else{

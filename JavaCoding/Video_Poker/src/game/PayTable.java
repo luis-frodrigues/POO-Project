@@ -8,12 +8,27 @@ abstract class  PayTable {
 	protected int max_credits=0;
 	protected Hashtable<Object, Object> PayTable;
 		
+	/**
+	 * Creates a Paytable that imposes a limit on the number of
+	 *  different hands results(max_pay_types) and also stablishes
+	 * the number of different ammounts that can be bet.
+	 * @param max_pay_types number of different hands results.
+	 * @param max_credits number of different ammounts that can be bet.
+	 */
 	PayTable(int max_pay_types, int max_credits){
 		PayTable = new Hashtable<Object, Object>();
 		this.max_credits=max_credits;
 		this.max_pay_types=max_pay_types;
 	}
 		
+	/**
+	 * Inserts in the PayTable the value for a certain HandType
+	 * and ammount of bet which correspond to the paremeters
+	 * HandType and Credit
+	 * @param HandType An object which represents a HandType
+	 * @param Credit An object which represents a Credit
+	 * @param Value The corresponding value as a int.
+	 */
 	@SuppressWarnings("unchecked")
 	void intsertValue(Object HandType, Object Credit, int Value){
 		if((PayTable.containsKey(HandType))&&(elem_on_table>0)){
@@ -35,6 +50,14 @@ abstract class  PayTable {
 		}
 	}
 	
+	/**
+	 * Gives the value for a certain HandType and ammount
+	 * of bet which correspond to the paremeters HandType
+	 *  and Credit.
+	 * @param HandType
+	 * @param Credit
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public int check_payout(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){
@@ -50,16 +73,13 @@ abstract class  PayTable {
 		return -2;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public int print_paytable(Object HandType, Object Credit){
-		if(PayTable.containsKey(HandType)){
-			Hashtable<Object, Integer> tmp= (Hashtable<Object, Integer>) PayTable.get(HandType);
-			int k = (int) tmp.get(Credit);
-			return k;
-		}
-		return 0;
-	}
-	
+	/**
+	 * Removes, if exists, the value and the corresponding ammount of bet
+	 * associated with a certain HandType. If the HandType stays with 0 
+	 * amounts of bet associated it is also removed from the table.
+	 * @param HandType
+	 * @param Credit
+	 */
 	@SuppressWarnings("unchecked")
 	public void removeValue(Object HandType, Object Credit){
 		if(PayTable.containsKey(HandType)){

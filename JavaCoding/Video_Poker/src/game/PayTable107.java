@@ -2,6 +2,10 @@ package game;
 
 public class PayTable107 extends PayTable{
 
+	/**
+	 * Creates a PayTable for the variant
+	 * double bonus 10/7 of video poker.
+	 */
 	PayTable107() {
 		super(11, 5);
 		String[] HandTypes= new String[11];
@@ -23,18 +27,6 @@ public class PayTable107 extends PayTable{
 		removeValue(HandTypes[0],5);
 		intsertValue(HandTypes[0],5,4000);
 		
-		//To print pay table uncomment the next lines:
-		/*
-			System.out.println("           Paytable ");
-			for(int i=0; i<11;i++){
-				System.out.print(HandTypes[i] + "--> ");
-				for(int j=1;j<=5;j++){
-					int k = print_paytable(HandTypes[i],j);
-					System.out.print(k + " ");
-				}
-				System.out.println();
-			}
-		*/
 	}
 
 }

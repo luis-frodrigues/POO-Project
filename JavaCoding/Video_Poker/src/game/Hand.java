@@ -11,7 +11,14 @@ public class Hand {
 	}
 
 	
-	public Hand(String[] cardsaux){
+	/**
+	 * Creates a deck from the given string cardaux
+	 * and also initializes 5 cards with no value
+	 * associated with it.
+	 * @param cardsaux String with the cards to be inserted
+	 * in the deck.
+	 */
+	Hand(String[] cardsaux){
 		deck = new Deck(cardsaux);
 		playerHand = new Card[5];
 		deck.printDeck(0);
@@ -192,6 +199,10 @@ public class Hand {
 			}
 	}	
 	
+	/**
+	 * Shuffles the deck and gives new five cards
+	 * to the hand.
+	 */
 	public void giveHand(){
 		int pos=0;
 		deck.shuffle(pos);
@@ -200,7 +211,14 @@ public class Hand {
 		}
 	}
 	
-	protected void giveHand(String[] cmdaux, int cardcount){
+
+	/**
+	 * Gives the next five cards from the position
+	 * cardcount of the deck
+	 * to the hand.
+	 * @param cardcount 
+	 */
+	protected void giveHand( int cardcount){
 		int pos=0;
 		
 		if (!deck.checkEnoughCards(cardcount, 5)){

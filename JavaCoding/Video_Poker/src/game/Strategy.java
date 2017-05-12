@@ -1,74 +1,100 @@
 package game;
 
 class Strategy {
+	
 	/**
 	 * Given a Hand it checks its value, update the credit 
 	 * and the statistics of the game.
 	 * @param hand
 	 * @param credit
-	 * @param paytable
-	 * Paytable to verify the pay out amount of the hand
+	 * @param paytable Paytable to verify the pay out amount of the hand
 	 * @param statistics
+	 * @return Returns a string with a message of the result.
 	 */
-	public static void CheckResult(Hand hand, Credit credit, PayTable107 paytable, Statistics statistics){
-		if(Verify107.TwoPair(hand).getnRet()==0){
-			credit.updateActualCredit(paytable.check_payout("Two Pair", credit.getPrevBet())); 
-			statistics.upTwoPair();
-			System.out.println("Player wins with a TWO PAIRS and his credit is "+credit.getActualCredit());
-		
+	public static String CheckResult(Hand hand, Credit credit, PayTable107 paytable, Statistics statistics){
+		String result;
+		if(Verify107.FullHouse(hand)){
+			credit.updateActualCredit(paytable.check_payout("Full House", credit.getPrevBet())); 
+			statistics.upFullHouse();
+			System.out.println("Player wins with a FULL HOUSE and his credit is "+credit.getActualCredit());
+			result="Player wins with a FULL HOUSE and his credit is "+credit.getActualCredit();
+			return result;
+			
 		}else if(Verify107.HighPair(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Jacks or Better", credit.getPrevBet())); 
 			statistics.upJacksorBetter();
 			System.out.println("Player wins with a JACKS OR BETTER and his credit is "+credit.getActualCredit());
+			result="Player wins with a JACKS OR BETTER and his credit is "+credit.getActualCredit();
+			return result;
+			
+		}else if(Verify107.TwoPair(hand).getnRet()==0){
+			credit.updateActualCredit(paytable.check_payout("Two Pair", credit.getPrevBet())); 
+			statistics.upTwoPair();
+			System.out.println("Player wins with a TWO PAIRS and his credit is "+credit.getActualCredit());
+			result="Player wins with a JACKS OR BETTER and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.ThreeOfaKind(hand).getnRet()==1){
 			credit.updateActualCredit(paytable.check_payout("Three of a Kind", credit.getPrevBet())); 
 			statistics.upThreeofaKind();
 			System.out.println("Player wins with a THREE OF A KIND and his credit is "+credit.getActualCredit());
-			
-		}else if(Verify107.FullHouse(hand)){
-			credit.updateActualCredit(paytable.check_payout("Full House", credit.getPrevBet())); 
-			statistics.upFullHouse();
-			System.out.println("Player wins with a FULL HOUSE and his credit is "+credit.getActualCredit());
+			result="Player wins with a THREE OF A KIND and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.Four5K(hand)){
 			credit.updateActualCredit(paytable.check_payout("Four 5-K", credit.getPrevBet())); 
 			statistics.upFourofaKind();
 			System.out.println("Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit());
+			result="Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.Four24(hand)){
 			credit.updateActualCredit(paytable.check_payout("Four 2-4", credit.getPrevBet())); 
 			statistics.upFourofaKind();
 			System.out.println("Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit());
+			result="Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.FourAces(hand)){
 			credit.updateActualCredit(paytable.check_payout("Four Aces", credit.getPrevBet())); 
 			statistics.upFourofaKind();
 			System.out.println("Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit());
+			result="Player wins with a FOUR OF A KIND and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.RoyalFlush(hand).getnRet()==0){
 			credit.updateActualCredit(paytable.check_payout("Royal Flush", credit.getPrevBet())); 
 			statistics.upRoyalFlush();
 			System.out.println("Player wins with a ROYAL FLUSH and his credit is "+credit.getActualCredit());
+			result="Player wins with a ROYAL FLUSH and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.StraightFlush(hand).getnRet()==5){
 			credit.updateActualCredit(paytable.check_payout("Straight Flush", credit.getPrevBet())); 
 			statistics.upStraightFlush();
 			System.out.println("Player wins with a STRAIGHT FLUSH and his credit is "+credit.getActualCredit());
+			result="Player wins with a STRAIGHT FLUSH and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.Straight(hand).getnRet()==0){	
 			credit.updateActualCredit(paytable.check_payout("Straight", credit.getPrevBet())); 
 			statistics.upStraight();
 			System.out.println("Player wins with a STRAIGHT and his credit is "+credit.getActualCredit());
+			result="Player wins with a STRAIGHT and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else if(Verify107.Flush(hand).getnRet()==0){
 			credit.updateActualCredit(paytable.check_payout("Flush", credit.getPrevBet())); 
 			statistics.upFlush();
 			System.out.println("Player wins with a FLUSH and his credit is "+credit.getActualCredit());
+			result="Player wins with a FLUSH and his credit is "+credit.getActualCredit();
+			return result;
 			
 		}else{
 			System.out.println("Player loses and his credit is "+credit.getActualCredit());
 			statistics.upOther();
+			result="Player loses and his credit is "+credit.getActualCredit();
+			return result;
 		}
 	}
 	/**

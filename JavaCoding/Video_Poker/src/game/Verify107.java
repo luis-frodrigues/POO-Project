@@ -2,8 +2,13 @@ package game;
 import java.util.Arrays;
 
 public class Verify107 extends Verify{
-	//Returns true if 4 Aces and 
-	//false otherwise
+	
+	/**
+	 * Verifies if the hand has 4 Aces.
+	 * @param hand
+	 * @return Returns true if the Hand has
+	 *  four Aces and false otherwise.
+	 */
 	static boolean FourAces(Hand hand ){
 		int nAces=0;
 		for(int i=0; i<=4;i++){
@@ -15,8 +20,14 @@ public class Verify107 extends Verify{
 		return false;
 	}
 	
-	//Returns true if Poker of value from 2 to 4  
-	//and false otherwise
+	//
+	/**
+	 * Verifies if the hand has four of a kind
+	 * where the rank must be between 2 and 4 inclusively. 
+	 * @param hand
+	 * @return Returns true if the hand has a Poker of 
+	 * values from 2 to 4 and false otherwise.
+	 */
 	static boolean Four24(Hand hand ){
 		int value1=hand.getPlayerCardValue(0)%13;
 		int value2=hand.getPlayerCardValue(1)%13;
@@ -35,8 +46,13 @@ public class Verify107 extends Verify{
 		return false;
 	}
 	
-	//Returns true if Poker of value from 5 to King  
-	//and false otherwise
+	/**
+	 * Verifies if the hand has four of a kind
+	 * where the rank must be between 5 and K inclusively.
+	 * @param hand
+	 * @return Returns true if the hand has a Poker of 
+	 * values from 5 to K and false otherwise.
+	 */
 	static boolean Four5K(Hand hand ){
 		int value1=hand.getPlayerCardValue(0)%13;
 		int value2=hand.getPlayerCardValue(1)%13;
@@ -55,8 +71,12 @@ public class Verify107 extends Verify{
 		return false;
 	}
 	
-	//If false returns nRet=0 and otherwise returns
-	//nRet=1
+	/**
+	 * Verifies if the Hand contains a Inside Straight.
+	 * @param hand
+	 * @return If false returns nRet=0 and otherwise returns
+	 * nRet=1
+	 */
 	static RetVerify InsideStraight(Hand hand ){
 		RetVerify Ret=Verify.Straight(hand);
 		int maxValue=0,minValue=12, Ace=0, LowAce=0,HighAce=0;
@@ -99,8 +119,12 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 	
-	//If false returns nRet=0 and otherwise returns
-	//nRet=1
+	/**
+	 * Verifies if the Hand contains a Outside Straight.
+	 * @param hand
+	 * @return If false returns nRet=0 and otherwise returns
+	 * nRet=1
+	 */
 	static RetVerify OutsideStraight(Hand hand ){
 		RetVerify Ret=Verify.Straight(hand);
 		int maxValue=0,minValue=12, Ace=0, LowAce=0,HighAce=0;
@@ -144,8 +168,13 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 
-	//Returns 0 if not StraightFlush1 and 1 if it is
-	//with positions of Cards to hold
+	/**
+	 * Verifies if the Hand contains a StraightFlush1 and
+	 * gives the positions of the cards if it contains.
+	 * @param hand
+	 * @return Returns 0 if it's not StraightFlush1 and 1 
+	 * if it is, with positions of cards to hold.
+	 */
 	static RetVerify StraightFlush1(Hand hand ){
 		RetVerify Ret= Verify.StraightFlush(hand);
 		int nGaps=0, Verify234=0,VerifyA23=0 , nHighCards=0;
@@ -210,9 +239,14 @@ public class Verify107 extends Verify{
 		Ret.setPos(null);
 		return Ret;
 	}
-	
-	//Returns 0 if not StraightFlush2 and 1 if it is
-	//with positions of Cards to hold
+
+	/**
+	 * * Verifies if the Hand contains a StraightFlush2 and
+	 * gives the positions of the cards if it contains.
+	 * @param hand
+	 * @return Returns 0 if it's not StraightFlush2 and 1 
+	 * if it is, with positions of cards to hold.
+	 */
 	static RetVerify StraightFlush2(Hand hand ){
 		RetVerify Ret= Verify.StraightFlush(hand);
 		int nGaps=0, Verify234=0,VerifyA23=0 , nHighCards=0;
@@ -278,8 +312,13 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 	
-	//Returns 0 if not StraightFlush3 and 1 if it is
-	//with positions of Cards to hold
+	/**
+	 * Verifies if the Hand contains a StraightFlush3 and
+	 * gives the positions of the cards if it contains.
+	 * @param hand
+	 * @return Returns 0 if it's not StraightFlush3 and 1 
+	 * if it is, with positions of cards to hold.
+	 */
 	static RetVerify StraightFlush3(Hand hand ){
 		RetVerify Ret =Verify.StraightFlush(hand);
 		int nGaps=0, nHighCards=0;
@@ -305,8 +344,14 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 	
-	//Returns how many Aces are needed to fulfill
-	// ThreeAces and the positions of the first 3 Aces
+	/**
+	 * Verifies how many Aces are needed to fulfill
+	 * ThreeAces and gives the positions of the firsts Aces
+	 * inthe Hand.
+	 * @param hand
+	 * @return Returns how many Aces are needed to fulfill
+	 * ThreeAces and the positions of the first 3 Aces
+	 */
 	static RetVerify ThreeAces(Hand hand ){
 		int Aces_needed=3, aux[]= new int[3];
 		
@@ -325,20 +370,39 @@ public class Verify107 extends Verify{
 		return Ret;
 	}
 	
-	//Returns the position of the Card or -1
-	//if the Card is not on the deck
-	static int CardRank(Hand hand, int value_of_card){
-		//if(value_of _card<0||value_of _card>51)
+
+	/**
+	 * Gives the position of the first Card with the same Rank as
+	 * the correspondent Rank of card with the value that is given 
+	 * in the parameter 'value'. 
+	 * @param hand
+	 * @param value_of_card
+	 * @return Returns the position of the first Card with the same Rank as
+	 * the correspondent Rank of card with the value that is given 
+	 * in the parameter 'value'. Returns -1 if there is not card with
+	 *  taht rank on the deck -1 if there is no card with that rank 
+	 *  on the deck.
+	 */
+	static int CardRank(Hand hand, int value){
+		if(value<0||value>51)
+			return -1;
 		for(int i=0; i<=4;i++){
-			if(hand.getPlayerCardValue(i)%13==value_of_card%13)
+			if(hand.getPlayerCardValue(i)%13==value%13)
 				return i+1;
 		}
 		return -1;
 	}
 	
-	//Receives a RetVerify with n_ret equals to the number//
-	// of cards that should be analyzed and returns true  //
-	// if cards are suited and false otherwise			  //
+	/**
+	 * Verifies if cards are suited. The RetVerify parameter contains
+	 * the positions of the cards that gonna be evaluated and the 
+	 * Hand contains the cards. The number of cards that gonna be
+	 * checked must be in the atribute nRet from RetVerify. 
+	 * @param CardsToVerify Contains nRet equals to the number of 
+	 * cards that should be analyzed and their positions in the hand.
+	 * @param hand
+	 * @return Returns true if cards are suited and false otherwise			  
+	 */
 	static boolean Suited(RetVerify CardsToVerify, Hand hand ){
 		if(CardsToVerify.getnRet()<1)
 			return false;
@@ -351,7 +415,14 @@ public class Verify107 extends Verify{
 		return true;
 	}
 	
-	//Returns the number of gaps for straight flushes
+	/**
+	 * Checks the number of gaps for a given set of cards. The 
+	 * information of the set of cards is in the RetVerify 'Ret',
+	 * where the positions of the cards are in PosRet field.
+	 * @param Ret Contains the positions of the cards in the hand.
+	 * @param hand
+	 * @return Returns the number of gaps for straight flushes.
+	 */
 	private static int NumberOfGaps(RetVerify Ret, Hand hand){
 		int vec[]= new int[3], Ace=0, AceLow=0, nGaps=0;
 		for(int i=0;i<3;i++){
@@ -375,7 +446,15 @@ public class Verify107 extends Verify{
 		return nGaps;
 	}
 
-	//Returns the number of highCards for straight flushes
+	/**
+	 * Checks the number of high cards for a given set of cards. The 
+	 * information of the set of cards is in the RetVerify 'Ret',
+	 * where the positions of the cards are in PosRet field.
+	 * @param Ret Contains the positions of the cards.
+	 * @param hand
+	 * @return Returns the number of highCards for the different
+	 * types of straight flush
+	 */
 	private static int HighCard(RetVerify Ret, Hand hand ) {
 		int flag=0;
 		for(int i=0; i<3;i++){
@@ -385,7 +464,16 @@ public class Verify107 extends Verify{
 		return flag;
 	}
 	
-	//Returns the number of highCards in nCards
+	/**
+	 * Gives the number of High Cards for a given set of cards. The 
+	 * information of the set of cards is in the RetVerify 'Ret',
+	 * where the positions of the cards are in PosRet field. The 
+	 * number of cards to check is the value of 'nCards'.
+	 * @param Ret Contains the positions of the cards in the hand.
+	 * @param hand
+	 * @param nCards Number of cards to check.
+	 * @return Returns the number of highCards in 'nCards'.
+	 */
 	static int HighCardInNCards(RetVerify Ret, Hand hand, int nCards ) {
 		int flag=0;
 		for(int i=0; i<nCards;i++){

@@ -70,7 +70,7 @@ public class Debug extends Game {
 	}
 	
 	public void getHand(){
-		hand.giveHand(cmdaux, cardcount);
+		hand.giveHand(cardcount);
 		cardcount=cardcount+5;
 	}
 	
