@@ -1,6 +1,8 @@
-package game;
+package strategy;
 
 import java.util.Arrays;
+
+import game.Hand;
 
 public abstract class  Verify {
 	

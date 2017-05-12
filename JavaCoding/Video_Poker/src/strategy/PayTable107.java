@@ -1,4 +1,4 @@
-package game;
+package strategy;
 
 public class PayTable107 extends PayTable{
 
@@ -6,7 +6,7 @@ public class PayTable107 extends PayTable{
 	 * Creates a PayTable for the variant
 	 * double bonus 10/7 of video poker.
 	 */
-	PayTable107() {
+	public PayTable107() {
 		super(11, 5);
 		String[] HandTypes= new String[11];
 		

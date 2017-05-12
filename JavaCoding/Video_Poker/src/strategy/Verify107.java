@@ -1,5 +1,7 @@
-package game;
+package strategy;
 import java.util.Arrays;
+
+import game.Hand;
 
 public class Verify107 extends Verify{
 	

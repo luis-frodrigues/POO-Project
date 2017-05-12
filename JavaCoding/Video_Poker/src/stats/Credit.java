@@ -1,4 +1,4 @@
-package game;
+package stats;
 
 public class Credit {
 	private int initialCredit;

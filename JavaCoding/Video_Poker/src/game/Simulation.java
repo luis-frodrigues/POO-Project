@@ -1,5 +1,7 @@
 package game;
 
+import strategy.Strategy107;
+
 public class Simulation extends Game{
 	int nbdeals;
 	int betAmount;
@@ -45,7 +47,7 @@ public class Simulation extends Game{
 		return ("d");
 	}
 	public String Process3() {
-		return(Strategy.Advice(hand));
+		return(Strategy107.Advice(hand));
 	}
 	
 	public void getHand(){

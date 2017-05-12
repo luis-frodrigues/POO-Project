@@ -1,6 +1,6 @@
-package game;
+package stats;
 
-class Statistics {
+public class Statistics {
 
 	private int[] stats = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	
@@ -11,7 +11,7 @@ class Statistics {
 	 * and the actual credit:
 	 * 
 	 */
-	void printstatistics (Credit credit){ 
+	public void printstatistics (Credit credit){ 
 		
 		int sum = 0, actualCredit, inicialCredit;
 		float gain;

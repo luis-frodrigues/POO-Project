@@ -1,4 +1,4 @@
-package game;
+package strategy;
 
 import java.util.Hashtable;
 

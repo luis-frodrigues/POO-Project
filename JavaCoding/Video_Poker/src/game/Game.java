@@ -1,5 +1,10 @@
 package game;
 
+import stats.Credit;
+import stats.Statistics;
+import strategy.PayTable107;
+import strategy.Strategy107;
+
 public abstract class Game{
 	protected Credit credit;
 	protected Hand hand;
@@ -444,7 +449,7 @@ public abstract class Game{
 						System.out.println("player's credit is "+credit.getActualCredit());//mambos
 					break;
 					case "a":
-						String advice=Strategy.Advice(hand);// Fazer o advice
+						String advice=Strategy107.Advice(hand);// Fazer o advice
 						System.out.println(parseAdvice(advice));
 					break;
 					case "s":
@@ -460,7 +465,7 @@ public abstract class Game{
 			holdPlay(cmd3aux);
 			hand.printHand();
 			
-			Strategy.CheckResult(hand, credit, paytable, stat);
+			Strategy107.CheckResult(hand, credit, paytable, stat);
 			
 			if (credit.getActualCredit()<=0){
 				System.out.println("Player does not have credits to play. Game Over!");
