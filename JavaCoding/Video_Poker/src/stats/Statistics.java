@@ -15,6 +15,18 @@ public class Statistics {
 	private int[] stats = new int[] {0,0,0,0,0,0,0,0,0,0,0};
 	
 	/**
+	 * Gets the statistics of the game.
+	 * @return Returns an array with the number of times
+	 * that an handtype has happened. According to the 
+	 * following enumeration: {JacksorBetter,TwoPair,
+	 * ThreeofaKind, Straight, Flush, FullHouse, FourofaKind, 
+	 * StraightFlush, RoyalFlush, Other}, it corresponds the
+	 * index of the returned array.
+	 */
+	public int[] getStats() {
+		return stats;
+	}
+	/**
 	 * It prints out the statistics of the game.
 	 * @param credit
 	 * The credit is used to know the initial credit

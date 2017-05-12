@@ -96,6 +96,16 @@ public class Stuff {
 				printUsage();
 				System.exit(1);
 			}
+		}else if(args[0].equals("-g")){
+			
+			mode='g';
+			if(args.length==1){
+				System.out.println("Graphical interface mode selected ");
+			}else{
+				System.out.println("Error: wrong arguments for graphical interface mode");
+				printUsage();
+				System.exit(1);
+			}
 		}else{
 			System.out.println("Error: selected mode " + args[0] + " unknown");
 			printUsage();

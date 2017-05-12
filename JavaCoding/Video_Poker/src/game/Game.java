@@ -11,6 +11,7 @@ public abstract class Game{
 	protected Statistics stat;
 	protected PayTable107 paytable;
 	protected int runs;
+	protected String stratResult=""; 
 	
 	public Game(int credit){
 		if (credit<=0){
@@ -465,7 +466,7 @@ public abstract class Game{
 			holdPlay(cmd3aux);
 			hand.printHand();
 			
-			Strategy107.CheckResult(hand, credit, paytable, stat);
+			stratResult=Strategy107.CheckResult(hand, credit, paytable, stat);
 			
 			if (credit.getActualCredit()<=0){
 				System.out.println("Player does not have credits to play. Game Over!");
