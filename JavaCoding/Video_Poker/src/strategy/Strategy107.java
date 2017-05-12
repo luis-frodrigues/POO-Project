@@ -4,7 +4,7 @@ import game.Hand;
 import stats.Credit;
 import stats.Statistics;
 
-public class Strategy107 implements Strategy {
+public class Strategy107 extends Strategy {
 	
 	/**
 	 * Given a Hand it checks its value, update the credit 
