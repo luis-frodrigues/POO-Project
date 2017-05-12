@@ -4,6 +4,15 @@ import game.Hand;
 import stats.Credit;
 import stats.Statistics;
 
+/**
+ * This class extends the Strategy class and its
+ * specific of the double bonus 10/7 video poker.
+ * It allows the user to receive advices and check 
+ * the results for a given hand.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Strategy107 extends Strategy {
 	
 	/**

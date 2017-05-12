@@ -2,7 +2,18 @@ package strategy;
 
 import java.util.Arrays;
 
-public class RetVerify {
+/**
+ * This class has package visibility because 
+ * it is specific of our implementation.
+ * It is used as an obejct of return in the
+ * verifications of hand types, because it can
+ * have the positions of the cards and an int
+ * for extra information.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
+class RetVerify {
 	private int nRet;
 	private int posRet[];
 	private int size;

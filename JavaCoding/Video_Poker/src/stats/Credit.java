@@ -1,5 +1,14 @@
 package stats;
 
+/**
+ * This is a public class which can store an
+ * intial credit, an actual credit and a bet
+ * ammount. The fields are private but can be
+ * accessed from the given methods.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Credit {
 	private int initialCredit;
 	private int actualCredit;

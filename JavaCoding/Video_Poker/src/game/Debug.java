@@ -4,6 +4,11 @@ package game;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Debug extends Game {
 
 	int cmdcount=0;

@@ -2,7 +2,16 @@ package strategy;
 
 import java.util.Hashtable;
 
-abstract class  PayTable {
+/**
+ * This a public abstract class and it can
+ * store 2 objects associated with a value of
+ * type int. It must be extended to implement 
+ * the variants of video poker or any other purpose.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
+public abstract class  PayTable {
 	private int elem_on_table=0;
 	private int max_pay_types=0;
 	protected int max_credits=0;

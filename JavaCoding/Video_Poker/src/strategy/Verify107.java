@@ -3,7 +3,16 @@ import java.util.Arrays;
 
 import game.Hand;
 
-public class Verify107 extends Verify{
+/**
+ * This class have package visibility and therefore
+ * it can't be used outside the package. It is specific
+ * of double bonus 10/7 video poker. Does verifications
+ * on the hand types associated with this game variation.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
+class Verify107 extends Verify{
 	
 	/**
 	 * Verifies if the hand has 4 Aces.

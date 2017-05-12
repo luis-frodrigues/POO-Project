@@ -3,8 +3,13 @@ package strategy;
 public class PayTable107 extends PayTable{
 
 	/**
-	 * Creates a PayTable for the variant
-	 * double bonus 10/7 of video poker.
+	 * This is a public class which creates a PayTable
+	 * for the variant double bonus 10/7 of video poker.
+	 * Although the table is created in the game, we allow
+	 * the users to use our Table to create their own game.
+	 * @author Luís Rodrigues
+	 * @author Eduardo Crespo
+	 * @author Eurico Lopes
 	 */
 	public PayTable107() {
 		super(11, 5);

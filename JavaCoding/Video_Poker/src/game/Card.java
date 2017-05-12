@@ -1,4 +1,13 @@
 package game;
+/**
+ * Card is a public class which has 3 private
+ * fields but the methods are public. Therefore
+ * it can be used anywhere but by extending it is
+ * not possible modify or even see our fields.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Card {
 
 	private char suits;

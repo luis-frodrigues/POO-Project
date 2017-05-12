@@ -2,6 +2,15 @@ package game;
 
 import java.util.Random;
 
+/**
+ * Deck is a public class where the user can create a 
+ * a set of Cards(Deck) and use some usefull methods.
+ * This class can be extended and modified in other 
+ * packages.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Deck {
 
 	protected Card [] Deck52;
@@ -56,7 +65,7 @@ public class Deck {
 	 * Shuffles the deck from the "int from" position.
 	 * @param from
 	 */
-	protected void shuffle(int from){
+	public void shuffle(int from){
 		int index;
 		Card  temp;
 		Random random = new Random();

@@ -1,5 +1,15 @@
 package stats;
 
+/**
+ * This class is public and stores the statistics 
+ * of the differents hand types in a video poker.
+ * The fields are private but can be acessed from
+ * the given methods. It is useless to extend the 
+ * class since the fieds are private.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public class Statistics {
 
 	private int[] stats = new int[] {0,0,0,0,0,0,0,0,0,0,0};

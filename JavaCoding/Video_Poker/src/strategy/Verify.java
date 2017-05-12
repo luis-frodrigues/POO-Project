@@ -4,6 +4,17 @@ import java.util.Arrays;
 
 import game.Hand;
 
+/**
+ * This is a public abstract class which verifies
+ * for a given hand the type of hand that matches.
+ * The types of hands are globlal for the different
+ * types of poker without joker cards. If its created
+ * a subclass of hand with different implementations of
+ * decks, it may be a problem using this class.
+ * @author Luís Rodrigues
+ * @author Eduardo Crespo
+ * @author Eurico Lopes
+ */
 public abstract class  Verify {
 	
 	/**
@@ -28,7 +39,6 @@ public abstract class  Verify {
 		
 		return Ret;
 	}
-
 	
 	/** 
 	 * TwoPair can be used to know how many Cards are needed

@@ -2,14 +2,24 @@ package game;
 
 public class Hand {
 
-	private Card [] playerHand;
-	private Deck deck;
+	protected Card [] playerHand;
+	protected Deck deck;
 	
+	/**
+	 * This is a public class which has fields that can
+	 * only be visible in other packages if extended.
+	 * Therefore, the Hand can be modified for other 
+	 * variants of games. Some methods have package 
+	 * visibility because are particular for the implementation
+	 * of double bonus 10/7 videopoker.  
+	 * @author Luís Rodrigues
+	 * @author Eduardo Crespo
+	 * @author Eurico Lopes
+	 */
 	public Hand(){
 		deck = new Deck();
 		playerHand = new Card[5];
 	}
-
 	
 	/**
 	 * Creates a deck from the given string cardaux
@@ -211,14 +221,13 @@ public class Hand {
 		}
 	}
 	
-
 	/**
 	 * Gives the next five cards from the position
 	 * cardcount of the deck
 	 * to the hand.
 	 * @param cardcount 
 	 */
-	protected void giveHand( int cardcount){
+	void giveHand( int cardcount){
 		int pos=0;
 		
 		if (!deck.checkEnoughCards(cardcount, 5)){
