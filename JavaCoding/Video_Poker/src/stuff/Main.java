@@ -8,11 +8,8 @@ import java.util.concurrent.CountDownLatch;
 
 public class Main{
 
-	private static JFrame frame;
-	private static JTextField textField;
-	private static JPanel panel;
+
 	private static int credit;
-	private static GraphicalInterface gI;
 	private static CountDownLatch latch;
 	
 	public static void main(String[] args){
@@ -49,12 +46,12 @@ public class Main{
 			if(Stuff.getModeS()=='g'){
 				
 
-				frame = new JFrame();
+				JFrame frame = new JFrame();
 				
 				
 				frame.setBounds(0, 0, 550, 300);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				panel = new JPanel();
+				JPanel panel = new JPanel();
 				panel.setBackground(new Color(0, 128, 128));
 				frame.getContentPane().add(panel, BorderLayout.CENTER);
 				panel.setLayout(null);
@@ -66,7 +63,7 @@ public class Main{
 				label.setBounds(40, 100, 546, 26);
 				panel.add(label);
 				label.setVisible(true);
-				textField = new JTextField();
+				JTextField textField = new JTextField();
 				textField.setBounds(40, 156, 146, 26);
 				panel.add(textField);
 				textField.setVisible(true);
@@ -103,7 +100,7 @@ public class Main{
 						e.printStackTrace();
 					}
 				}
-				gI = new GraphicalInterface(credit, frame);
+				GraphicalInterface gI = new GraphicalInterface(credit, frame);
 				gI.init();					
 			}
 

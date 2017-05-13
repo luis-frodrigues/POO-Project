@@ -140,7 +140,7 @@ public class GraphicalInterface extends Game {
         xpos=100;
 		for(int i=0; i<5;i++){
 			card[i] = new JLabel();
-			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas" + "doge" + ".gif";
+			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas/" + "doge" + ".gif";
 			card[i].setIcon(new ImageIcon(imagePath));
 			card[i].setBounds(xpos, 200, 73, 97);
 			panel.add(card[i]);
@@ -321,7 +321,7 @@ public class GraphicalInterface extends Game {
 		for(int i=0; i<5;i++){
 			System.out.println("localHand["+i+"]: "+localHand[i]);
 			card[i] = new JLabel();
-			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas" + file[localHand[i]]+ ".gif";
+			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas/" + file[localHand[i]]+ ".gif";
 			card[i].setIcon(new ImageIcon(imagePath));
 			card[i].setBounds(x, 200, 73, 97);
 			panel.add(card[i]);
@@ -339,7 +339,7 @@ public class GraphicalInterface extends Game {
 		}
 		for(int i=0; i<5;i++){
 			card[i] = new JLabel();
-			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas" + "doge" + ".gif";
+			String imagePath = "C:/Users/Luís/Documents/git/POO-Project/JavaCoding/Video_Poker/src/cartas/" + "doge" + ".gif";
 			card[i].setIcon(new ImageIcon(imagePath));
 			card[i].setBounds(xpos, 200, 73, 97);
 			panel.add(card[i]);

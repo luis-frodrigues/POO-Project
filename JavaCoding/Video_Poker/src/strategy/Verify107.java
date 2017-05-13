@@ -31,7 +31,6 @@ class Verify107 extends Verify{
 		return false;
 	}
 	
-	//
 	/**
 	 * Verifies if the hand has four of a kind
 	 * where the rank must be between 2 and 4 inclusively. 
@@ -381,7 +380,6 @@ class Verify107 extends Verify{
 		return Ret;
 	}
 	
-
 	/**
 	 * Gives the position of the first Card with the same Rank as
 	 * the correspondent Rank of card with the value that is given 
